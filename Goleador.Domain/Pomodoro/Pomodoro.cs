@@ -13,5 +13,6 @@ namespace Goleador.Domain.Pomodoro
         }
 
         public DateTimeOffset Done { get; private set; }
+        public Book.Book Book { get; private set; }
     }
 }
