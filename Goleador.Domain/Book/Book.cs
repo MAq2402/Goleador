@@ -23,8 +23,8 @@ namespace Goleador.Domain.Book
         public string Author { get; private set; }
         public BookStatus Status { get; private set; }
         public DateTimeOffset Created { get; private set; }
-        public DateTimeOffset ReadingStarted { get; private set; }
-        public DateTimeOffset ReadingFinished { get; private set; }
+        public DateTimeOffset? ReadingStarted { get; private set; }
+        public DateTimeOffset? ReadingFinished { get; private set; }
         public IEnumerable<Pomodoro.Pomodoro> Pomodoros => _pomodoros.AsEnumerable();
 
         public void StartReading()

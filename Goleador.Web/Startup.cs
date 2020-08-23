@@ -1,8 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
+using Goleador.Application.Write.Commands;
+using Goleador.Domain.Base;
 using Goleador.Infrastructure.DbContext;
+using Goleador.Infrastructure.Repositories;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -31,6 +36,10 @@ namespace Goleador.Web
 
             services.AddDbContext<GoleadorDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddMediatR(Assembly.GetAssembly(typeof(AddBookToFutureReadListCommand)));
+
+            services.AddScoped(typeof(IRepository<>), typeof(WriteRepository<>));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
