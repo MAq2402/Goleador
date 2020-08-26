@@ -9,7 +9,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Goleador.Application.Messages\Goleador.Application.Messages.csproj" />
     <ProjectReference Include="..\Goleador.Domain\Goleador.Domain.csproj" />
+    <ProjectReference Include="..\Goleador.Infrastructure\Goleador.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

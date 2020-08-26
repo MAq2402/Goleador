@@ -8,4 +8,14 @@
     <PackageReference Include="MediatR" Version="8.1.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Goleador.Infrastructure\Goleador.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="MongoDB.Bson">
+      <HintPath>..\..\..\..\.nuget\packages\mongodb.bson\2.11.0\lib\netstandard2.0\MongoDB.Bson.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

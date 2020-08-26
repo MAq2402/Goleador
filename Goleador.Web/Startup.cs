@@ -2,21 +2,25 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
+using Autofac;
+using Goleador.Application.Messages.Messages;
 using Goleador.Application.Write.Commands;
 using Goleador.Domain.Base;
 using Goleador.Infrastructure.DbContext;
+using Goleador.Infrastructure.Messages;
 using Goleador.Infrastructure.Repositories;
+using Goleador.Infrastructure.Types;
+using Goleador.Web.Dispatchers;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.Serializers;
 
 namespace Goleador.Web
 {
@@ -32,14 +36,27 @@ namespace Goleador.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.Standard));
             services.AddControllers();
 
             services.AddDbContext<GoleadorDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddMediatR(Assembly.GetAssembly(typeof(AddBookToFutureReadListCommand)));
+        }
 
-            services.AddScoped(typeof(IRepository<>), typeof(WriteRepository<>));
+        public void ConfigureContainer(ContainerBuilder builder)
+        {
+            var mongoConfiguration = Configuration.GetSection("GoleadorReadDatabaseSettings");
+            var appSettings = new Settings(new MongoSettings(mongoConfiguration["ConnectionString"],
+                mongoConfiguration["DatabaseName"]));
+
+            builder.Register(context => appSettings).SingleInstance();
+            builder.RegisterRepositories();
+            builder.RegisterType<MessageDispatcher>().As<IMessageDispatcher>();
+            builder.RegisterType<MessageService>().As<IMessageService>();
+            builder.RegisterRabbitMq(Configuration.GetSection("RabbitMq"));
+            builder.RegisterMessageHandlers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -56,10 +73,9 @@ namespace Goleador.Web
 
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+
+            app.SubscribeToMessages();
         }
     }
 }

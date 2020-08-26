@@ -5,6 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Autofac" Version="5.2.0" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="6.0.0" />
     <PackageReference Include="MediatR" Version="8.1.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.7" />
@@ -12,9 +14,12 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="RawRabbit" Version="1.10.4" />
+    <PackageReference Include="RawRabbit.vNext" Version="1.10.4" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Goleador.Application.Read\Goleador.Application.Read.csproj" />
     <ProjectReference Include="..\Goleador.Application.Write\Goleador.Application.Write.csproj" />
     <ProjectReference Include="..\Goleador.Infrastructure\Goleador.Infrastructure.csproj" />
   </ItemGroup>
