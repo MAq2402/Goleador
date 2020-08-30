@@ -5,9 +5,9 @@ using MediatR;
 
 namespace Goleador.Application.Write.Commands
 {
-    public class AddBookToFutureReadListCommand : IRequest
+    public class AddBookToFutureReadList : IRequest
     {
-        public AddBookToFutureReadListCommand(string name, string author)
+        public AddBookToFutureReadList(string name, string author)
         {
             Name = name;
             Author = author;

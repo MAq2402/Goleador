@@ -1,15 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
+using Goleador.Infrastructure.Types;
 
 namespace Goleador.Application.Read.Models
 {
-    public class Book
+    public class Book : ReadModel
     {
-        [BsonId]
-        public Guid Id { get; set; }
         public string Name { get; set; }
         public string Author { get; set; }
         public string Status { get; set; }

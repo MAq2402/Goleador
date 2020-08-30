@@ -10,7 +10,7 @@ namespace Goleador.Infrastructure.Repositories
 {
     public class WriteRepository<T> : IRepository<T> where T : AggregateRoot
     {
-        private GoleadorDbContext _dbContext;
+        private readonly GoleadorDbContext _dbContext;
 
         public WriteRepository(GoleadorDbContext dbContext)
         {

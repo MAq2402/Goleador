@@ -5,3 +5,5 @@ Content-Type: application/json
     "name": "test",
     "author": "test2"
 }
+
+GET http://localhost:59040/api/book HTTP/1.1

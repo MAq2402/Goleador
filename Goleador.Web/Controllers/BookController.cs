@@ -27,12 +27,34 @@ namespace Goleador.Web.Controllers
             return Ok(await _mediator.Send(new GetBooksQuery()));
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetBookAsync(string id)
+        {
+            return Ok(await _mediator.Send(new GetBookQuery(new Guid(id))));
+        }
+
         [HttpPost]
         public async Task<IActionResult> AddBookToFutureReadListAsync([FromBody] BookForCreation book)
         {
-            await _mediator.Send(new AddBookToFutureReadListCommand(book.Name, book.Author));
+            await _mediator.Send(new AddBookToFutureReadList(book.Name, book.Author));
 
             return CreatedAtRoute(null, null);
+        }
+
+        [HttpPut("startReading/{id}")]
+        public async Task<IActionResult> StartReadingBookAsync(string id)
+        {
+            await _mediator.Send(new StartReadingBook(new Guid(id)));
+
+            return NoContent();
+        }
+
+        [HttpPost("{id}/pomodoros")]
+        public async Task<IActionResult> DoPomodoro(string id)
+        {
+            await _mediator.Send(new DoPomodoro(new Guid(id)));
+
+            return NoContent();
         }
     }
 }

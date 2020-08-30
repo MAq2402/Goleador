@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Autofac;
-using Goleador.Domain.Base;
+using Goleador.Application.Messages.Handlers;
 using Goleador.Infrastructure.Types;
 
 namespace Goleador.Web.Dispatchers

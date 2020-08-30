@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Goleador.Application.Messages.Handlers;
 using Goleador.Application.Messages.Messages;
 using Goleador.Application.Read.Models;
 using Goleador.Infrastructure.Repositories;
-using Goleador.Infrastructure.Types;
 
 namespace Goleador.Application.Read.MessageHandlers
 {

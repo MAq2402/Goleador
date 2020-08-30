@@ -4,10 +4,10 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using Autofac;
+using Goleador.Application.Messages.Handlers;
 using Goleador.Application.Messages.Messages;
 using Goleador.Domain.Base;
 using Goleador.Infrastructure.Repositories;
-using Goleador.Infrastructure.Types;
 
 namespace Goleador.Web
 {

@@ -10,29 +10,28 @@ using Goleador.Domain.Book;
 using Goleador.Infrastructure.Messages;
 using MediatR;
 
-namespace Goleador.Application.Write.CommandHandlers
+namespace Goleador.Application.Write.Handlers
 {
-    public class AddBookToFutureReadListHandler : IRequestHandler<AddBookToFutureReadList>
+    public class StartReadingBookHandler : IRequestHandler<StartReadingBook>
     {
         private readonly IRepository<Book> _bookRepository;
         private readonly IMessageService _messageService;
 
-        public AddBookToFutureReadListHandler(IRepository<Book> bookRepository, IMessageService messageService)
+        public StartReadingBookHandler(IRepository<Book> bookRepository, IMessageService messageService)
         {
             _bookRepository = bookRepository;
             _messageService = messageService;
         }
 
-        public async Task<Unit> Handle(AddBookToFutureReadList request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(StartReadingBook request, CancellationToken cancellationToken)
         {
-            var book = new Book(request.Name, request.Author);
+            var book = await _bookRepository.GetAsync(request.Id);
 
-            await _bookRepository.AddAsync(book);
+            book.StartReading();
 
             await _bookRepository.SaveChangesAsync();
 
-            await _messageService.PublishAsync(new BookAddedToFutureReadList(book.Id, book.Name, book.Author, "To read",
-                book.Created));
+            await _messageService.PublishAsync(new ReadingBookStarted(book.Id));
 
             return Unit.Value;
         }
