@@ -1,0 +1,29 @@
+version: '3'
+services:
+    rabbitmq:
+        hostname: rabbitmq
+        image: rabbitmq:3-management
+        container_name: rabbitmq
+        environment:
+            RABBITMQ_DEFAULT_USER: guest
+            RABBITMQ_DEFAULT_PASS: guest
+            # CAN BE DELETED I THINK
+            RABBITMQ_DEFAULT_HOST: rabbitmq 
+        ports:
+            - 5672:5672
+            - 15672:15672
+    ms-sql-server:
+        image: mcr.microsoft.com/mssql/server:2017-latest-ubuntu
+        environment: 
+            ACCEPT_EULA: "Y"
+            SA_PASSWORD: "Password123"
+            MSSQL_PID: Express
+        ports:
+            - "1433:1433"
+    goleador-web-api:
+        build: .
+        ports: 
+            - "8080:80"
+        depends_on:
+            - rabbitmq
+        
