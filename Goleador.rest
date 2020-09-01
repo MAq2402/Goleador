@@ -1,9 +1,27 @@
-POST http://localhost:59040/api/book HTTP/1.1
+@hostName = http://localhost:8080
+//@hostname = {{hostName}}
+@bookId = 0502fcad-355f-4561-99e1-08d84923ad14
+
+POST {{hostName}}/api/book HTTP/1.1
 Content-Type: application/json
 
 {
-    "name": "test",
-    "author": "test2"
+    "name": "test3",
+    "author": "test3"
 }
 
-GET http://localhost:59040/api/book HTTP/1.1
+GET {{hostName}}/api/book HTTP/1.1
+
+GET {{hostName}}/api/book/{{bookId}} HTTP/1.1
+
+POST {{hostName}}/api/book/{{bookId}}/pomodoros HTTP/1.1
+Content-Type: application/json
+
+{
+}
+
+PUT {{hostName}}/api/book/startReading/{{bookId}} HTTP/1.1
+Content-Type: application/json
+
+{
+}
