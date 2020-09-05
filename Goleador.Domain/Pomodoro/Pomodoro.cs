@@ -5,7 +5,7 @@ using Goleador.Domain.Base;
 
 namespace Goleador.Domain.Pomodoro
 {
-    public class Pomodoro : Entity
+    public class Pomodoro : ValueObject
     {
         public Pomodoro()
         {
@@ -13,6 +13,10 @@ namespace Goleador.Domain.Pomodoro
         }
 
         public DateTimeOffset Done { get; private set; }
-        public Book.Book Book { get; private set; }
+
+        protected override IEnumerable<object> GetEqualityComponents()
+        {
+            yield return Done;
+        }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Goleador.Domain.Book;
+using Goleador.Domain.Pomodoro;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -13,8 +14,12 @@ namespace Goleador.Infrastructure.EntitiesConfigurations
         {
             builder.HasKey(b => b.Id);
 
-            builder.HasMany(b => b.Pomodoros)
-                .WithOne(p => p.Book);
+            builder.OwnsMany(b => b.Pomodoros, p =>
+            {
+                p.WithOwner().HasForeignKey("BookId");
+                p.Property<Guid>("Id");
+                p.HasKey("Id");
+            });
 
             builder.Metadata.FindNavigation(nameof(Book.Pomodoros))
                 .SetPropertyAccessMode(PropertyAccessMode.Field);

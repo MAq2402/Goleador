@@ -1,6 +1,6 @@
-@hostName = http://localhost:8080
-//@hostname = {{hostName}}
-@bookId = 0502fcad-355f-4561-99e1-08d84923ad14
+//@hostName = http://localhost:8080
+@hostName = http://localhost:59040
+@bookId = 7c724210-70af-46a9-3176-08d84e9caae4
 
 POST {{hostName}}/api/book HTTP/1.1
 Content-Type: application/json

@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Goleador.Infrastructure.EntitiesConfigurations
 {
-    public class PomodoroConfiguration : IEntityTypeConfiguration<Pomodoro>
-    {
-        public void Configure(EntityTypeBuilder<Pomodoro> builder)
-        {
-            builder.HasKey(p => p.Id);
-        }
-    }
+    //public class PomodoroConfiguration : IEntityTypeConfiguration<Pomodoro>
+    //{
+    //    public void Configure(EntityTypeBuilder<Pomodoro> builder)
+    //    {
+    //        //builder.HasKey("Id");
+    //    }
+    //}
 }

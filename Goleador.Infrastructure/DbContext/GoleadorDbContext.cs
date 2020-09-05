@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Text;
 using Goleador.Domain.Book;
 using Goleador.Domain.Pomodoro;
@@ -14,6 +15,13 @@ namespace Goleador.Infrastructure.DbContext
         }
 
         public DbSet<Book> Books { get; set; }
-        public DbSet<Pomodoro> Pomodoros { get; set; }
+        //public DbSet<Pomodoro> Pomodoros { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetAssembly(typeof(GoleadorDbContext)));
+
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

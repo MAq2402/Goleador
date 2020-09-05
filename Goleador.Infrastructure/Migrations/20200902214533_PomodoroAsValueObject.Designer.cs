@@ -4,14 +4,16 @@ using Goleador.Infrastructure.DbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Goleador.Infrastructure.Migrations
 {
     [DbContext(typeof(GoleadorDbContext))]
-    partial class GoleadorDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200902214533_PomodoroAsValueObject")]
+    partial class PomodoroAsValueObject
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -59,6 +61,9 @@ namespace Goleador.Infrastructure.Migrations
                             b1.Property<Guid>("BookId")
                                 .HasColumnType("uniqueidentifier");
 
+                            b1.Property<Guid?>("BookId1")
+                                .HasColumnType("uniqueidentifier");
+
                             b1.Property<DateTimeOffset>("Done")
                                 .HasColumnType("datetimeoffset");
 
@@ -66,10 +71,16 @@ namespace Goleador.Infrastructure.Migrations
 
                             b1.HasIndex("BookId");
 
+                            b1.HasIndex("BookId1");
+
                             b1.ToTable("Pomodoro");
 
                             b1.WithOwner()
                                 .HasForeignKey("BookId");
+
+                            b1.HasOne("Goleador.Domain.Book.Book", "Book")
+                                .WithMany()
+                                .HasForeignKey("BookId1");
                         });
                 });
 #pragma warning restore 612, 618
