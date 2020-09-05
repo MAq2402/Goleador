@@ -58,4 +58,11 @@ services:
         links: 
             - rabbitmq
         restart: on-failure
+
+    goleador-ui:
+        build: ./Goleador.UI/Goleador
+        ports: 
+            - "7070:70"
+        depends_on: 
+            - goleador-web-api
         
