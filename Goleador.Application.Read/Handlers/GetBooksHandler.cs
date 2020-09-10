@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Goleador.Application.Read.Models;
 using Goleador.Application.Read.Queries;
+using Goleador.Application.Read.Repositories;
 using Goleador.Infrastructure.Repositories;
 using MediatR;
 
@@ -12,16 +13,16 @@ namespace Goleador.Application.Read.Handlers
 {
     public class GetBooksHandler : IRequestHandler<GetBooksQuery, IEnumerable<Book>>
     {
-        private readonly IReadRepository<Book> _bookRepository;
+        private readonly IBookRepository _bookRepository;
 
-        public GetBooksHandler(IReadRepository<Book> bookRepository)
+        public GetBooksHandler(IBookRepository bookRepository)
         {
             _bookRepository = bookRepository;
         }
 
         public async Task<IEnumerable<Book>> Handle(GetBooksQuery request, CancellationToken cancellationToken)
         {
-            return await _bookRepository.GetAllAsync();
+            return await _bookRepository.BooksWithPomodorosAsync();
         }
     }
 }

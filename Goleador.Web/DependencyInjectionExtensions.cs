@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Autofac;
 using Goleador.Application.Messages.Handlers;
 using Goleador.Application.Messages.Messages;
+using Goleador.Application.Read.Repositories;
 using Goleador.Domain.Base;
 using Goleador.Infrastructure.Repositories;
 
@@ -23,6 +24,7 @@ namespace Goleador.Web
         {
             builder.RegisterGeneric(typeof(WriteRepository<>)).As(typeof(IRepository<>));
             builder.RegisterGeneric(typeof(ReadRepository<>)).As(typeof(IReadRepository<>));
+            builder.RegisterType<BookRepository>().As<IBookRepository>();
         }
     }
 }

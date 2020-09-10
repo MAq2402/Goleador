@@ -22,7 +22,7 @@ namespace Goleador.Application.Messages.Handlers
             var pomodoro = new Pomodoro()
             {
                 Done = message.Done,
-                PomodrableId = message.PomodorableId
+                PomodorableId = message.PomodorableId
             };
 
             await _pomodoroRepository.InsertOneAsync(pomodoro);
