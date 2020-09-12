@@ -1,13 +1,18 @@
 //@hostName = http://localhost:8080
 @hostName = http://localhost:59040
-@bookId = 2f5a20d3-b2d8-405c-f9af-08d855a91fdc
+@bookId = 3c39e8a8-6fbf-47dd-9fa4-08d855ad576c
+
+@bookApiKey = AIzaSyAisGZqCY5mXmgrD0avUdhRACHPLhd_G7I
+
+@bookApiUrl = https://www.googleapis.com/books/v1/
+
 
 POST {{hostName}}/api/book HTTP/1.1
 Content-Type: application/json
 
 {
-    "name": "DDD",
-    "author": "Vernon"
+    "name": "test2",
+    "author": "test2"
 }
 
 GET {{hostName}}/api/book HTTP/1.1
@@ -25,3 +30,7 @@ Content-Type: application/json
 
 {
 }
+
+GET {{bookApiUrl}}volumes?q=flowers+inauthor:keyes&key={{bookApiKey}}
+
+GET {{bookApiUrl}}volumes?q=ddd&key={{bookApiKey}}

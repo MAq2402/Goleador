@@ -8,6 +8,8 @@ using Goleador.Application.Messages.Handlers;
 using Goleador.Application.Messages.Messages;
 using Goleador.Application.Read.Repositories;
 using Goleador.Domain.Base;
+using Goleador.Infrastructure.BookSearch.Services;
+using Goleador.Infrastructure.Messages;
 using Goleador.Infrastructure.Repositories;
 
 namespace Goleador.Web
@@ -25,6 +27,12 @@ namespace Goleador.Web
             builder.RegisterGeneric(typeof(WriteRepository<>)).As(typeof(IRepository<>));
             builder.RegisterGeneric(typeof(ReadRepository<>)).As(typeof(IReadRepository<>));
             builder.RegisterType<BookRepository>().As<IBookRepository>();
+        }
+
+        public static void RegisterServices(this ContainerBuilder builder)
+        {
+            builder.RegisterType<MessageService>().As<IMessageService>();
+            builder.RegisterType<BookSearchService>().As<IBookSearchService>();
         }
     }
 }

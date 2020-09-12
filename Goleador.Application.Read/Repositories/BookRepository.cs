@@ -20,7 +20,7 @@ namespace Goleador.Application.Read.Repositories
 
         public async Task<IEnumerable<Book>> BooksWithPomodorosAsync()
         {
-            var books = await _collection.Aggregate()
+            var books = await Collection.Aggregate()
                 .Lookup("Pomodoros", "_id", "PomodorableId", "Pomodoros")
                 .ToListAsync();
 
@@ -29,7 +29,7 @@ namespace Goleador.Application.Read.Repositories
 
         public async Task<Book> BookWithPomodorosAsync(Guid requestId)
         {
-            var book =  await _collection.Aggregate()
+            var book =  await Collection.Aggregate()
                 .Match(b => b.Id == requestId)
                 .Lookup("Pomodoros", "_id", "PomodorableId", "Pomodoros")
                 .FirstOrDefaultAsync();

@@ -43,13 +43,15 @@ namespace Goleador.Web
         public void ConfigureContainer(ContainerBuilder builder)
         {
             var mongoConfiguration = Configuration.GetSection("GoleadorReadDatabaseSettings");
+            var googleBooksApiConfiguration = Configuration.GetSection("GoogleBooksApi");
             var appSettings = new Settings(new MongoSettings(mongoConfiguration["ConnectionString"],
-                mongoConfiguration["DatabaseName"]));
+                    mongoConfiguration["DatabaseName"]),
+                new GoogleBooksApiSettings(googleBooksApiConfiguration["Key"]));
 
             builder.Register(context => appSettings).SingleInstance();
             builder.RegisterRepositories();
+            builder.RegisterServices();
             builder.RegisterType<MessageDispatcher>().As<IMessageDispatcher>();
-            builder.RegisterType<MessageService>().As<IMessageService>();
             builder.RegisterRabbitMq(Configuration.GetSection("RabbitMq"));
             builder.RegisterMessageHandlers();
         }

@@ -13,7 +13,7 @@ namespace Goleador.Infrastructure.Repositories
 {
     public class ReadRepository<T> : IReadRepository<T> where T : ReadModel
     {
-        protected readonly IMongoCollection<T> _collection;
+        protected IMongoCollection<T> Collection { get; }
 
         public ReadRepository(Settings settings)
         {
@@ -23,34 +23,33 @@ namespace Goleador.Infrastructure.Repositories
 
             var collectionName = $"{typeof(T).Name}s";
 
-            _collection = database.GetCollection<T>(collectionName);
+            Collection = database.GetCollection<T>(collectionName);
         }
 
         public async Task<IEnumerable<T>> GetAllAsync()
         {
-            return (await _collection.FindAsync(new BsonDocument())).ToList();
+            return (await Collection.FindAsync(new BsonDocument())).ToList();
         }
 
         public async Task InsertOneAsync(T entity)
         {
-            await _collection.InsertOneAsync(entity);
+            await Collection.InsertOneAsync(entity);
         }
 
         public async Task<T> GetAsync(Guid id)
         {
-            return (await _collection.FindAsync(x => x.Id == id)).FirstOrDefault();
+            return (await Collection.FindAsync(x => x.Id == id)).FirstOrDefault();
         }
 
         public async Task UpdateAsync(Guid id, Dictionary<string, string> fieldValuePairs)
         {
-            var updateBuilder = Builders<T>.Update;
             UpdateDefinition<T> update = null;
             foreach (var (key, value) in fieldValuePairs)
             {
-                update = updateBuilder.Set(key, value);
+                update = Builders<T>.Update.Set(key, value);
             }
 
-            await _collection.FindOneAndUpdateAsync(x => x.Id == id, update);
+            await Collection.FindOneAndUpdateAsync(x => x.Id == id, update);
         }
     }
 }

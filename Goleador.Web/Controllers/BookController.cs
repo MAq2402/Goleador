@@ -33,6 +33,13 @@ namespace Goleador.Web.Controllers
             return Ok(await _mediator.Send(new GetBookQuery(new Guid(id))));
         }
 
+        [HttpGet("search")]
+
+        public async Task<IActionResult> SearchBooksAsync(string query)
+        {
+            return Ok(await _mediator.Send(new SearchBooksQuery(query)));
+        }
+
         [HttpPost]
         public async Task<IActionResult> AddBookToFutureReadListAsync([FromBody] BookForCreation book)
         {
