@@ -1,0 +1,14 @@
+<form class="example-form">
+    <mat-form-field class="example-full-width">
+      <input matInput
+             placeholder="Search for books"
+             [matAutocomplete]="auto"
+             [formControl]="searchControl">
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let book of books" [value]="book.title">
+          <!-- <img class="example-option-img" aria-hidden [src]="state.flag" height="25"> -->
+          <span>{{book.title}}</span> |
+          <!-- <small>Population: {{state.population}}</small> -->
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>

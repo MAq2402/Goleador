@@ -1,5 +1,7 @@
 //@hostName = http://localhost:8080
-@hostName = http://localhost:59040
+// @hostName = http://localhost:59040
+
+@hostName = https://localhost:44323
 @bookId = 3c39e8a8-6fbf-47dd-9fa4-08d855ad576c
 
 @bookApiKey = AIzaSyAisGZqCY5mXmgrD0avUdhRACHPLhd_G7I
@@ -15,17 +17,16 @@ Content-Type: application/json
     "author": "test2"
 }
 
-GET {{hostName}}/api/book HTTP/1.1
+GET {{hostName}}/api/books HTTP/1.1
 
-GET {{hostName}}/api/book/{{bookId}} HTTP/1.1
+GET {{hostName}}/api/books/{{bookId}} HTTP/1.1
 
-POST {{hostName}}/api/book/{{bookId}}/pomodoros HTTP/1.1
+POST {{hostName}}/api/books/{{bookId}}/pomodoros HTTP/1.1
 Content-Type: application/json
-
 {
 }
 
-PUT {{hostName}}/api/book/startReading/{{bookId}} HTTP/1.1
+PUT {{hostName}}/api/books/startReading/{{bookId}} HTTP/1.1
 Content-Type: application/json
 
 {
@@ -34,3 +35,5 @@ Content-Type: application/json
 GET {{bookApiUrl}}volumes?q=flowers+inauthor:keyes&key={{bookApiKey}}
 
 GET {{bookApiUrl}}volumes?q=ddd&key={{bookApiKey}}
+
+GET {{hostName}}/api/books/search?query=xDDDDDDDDDDDDDDDDDDD HTTP/1.1

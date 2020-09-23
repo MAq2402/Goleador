@@ -1,16 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MaterialModule } from '../shared/material/material.module';
-
-
+import { HttpClientModule } from '@angular/common/http';
+import { BrowserModule } from '@angular/platform-browser';
 
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
-    MaterialModule
+    BrowserModule,
+    HttpClientModule,
   ], exports: [
-    MaterialModule
   ]
 })
 export class CoreModule { }

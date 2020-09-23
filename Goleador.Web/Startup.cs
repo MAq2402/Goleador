@@ -6,7 +6,6 @@ using Autofac;
 using Goleador.Application.Read.Queries;
 using Goleador.Application.Write.Commands;
 using Goleador.Infrastructure.DbContext;
-using Goleador.Infrastructure.Messages;
 using Goleador.Infrastructure.Types;
 using Goleador.Web.Dispatchers;
 using MediatR;
@@ -21,6 +20,8 @@ namespace Goleador.Web
 {
     public class Startup
     {
+        private readonly string _goleadorCorsPolicyName = "GoleadorCorsPolicy";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -32,6 +33,17 @@ namespace Goleador.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: _goleadorCorsPolicyName, builder =>
+                {
+                    builder.WithOrigins("http://localhost:4200")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowCredentials();
+                });
+            });
 
             services.AddDbContext<GoleadorDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
@@ -69,6 +81,8 @@ namespace Goleador.Web
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(_goleadorCorsPolicyName);
 
             app.UseAuthorization();
 

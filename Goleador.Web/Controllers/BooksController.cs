@@ -6,17 +6,18 @@ using Goleador.Application.Read.Queries;
 using Goleador.Application.Write.Commands;
 using Goleador.Application.Write.Models;
 using MediatR;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Goleador.Web.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class BookController : ControllerBase
+    public class BooksController : ControllerBase
     {
         private readonly IMediator _mediator;
 
-        public BookController(IMediator mediator)
+        public BooksController(IMediator mediator)
         {
             _mediator = mediator;
         }
