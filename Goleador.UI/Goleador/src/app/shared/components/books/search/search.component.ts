@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { FormControl } from '@angular/forms';;
+import { FormControl } from '@angular/forms';
+import { MatAutocompleteSelectedEvent } from '@angular/material';
+import { of } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { BookService } from 'src/app/core/services/book.service';
 import { BookSearchItem } from 'src/app/shared/models/book-search-item';
@@ -23,9 +25,13 @@ export class SearchComponent {
           if (term && term.length > 2) {
             return this.bookService.searchBooks(term);
           } else {
-            this.books = [];
+            return of([]);
           }
         }
       )).subscribe(books => this.books = books);
+  }
+
+  onSelect(event: MatAutocompleteSelectedEvent) {
+    
   }
 }

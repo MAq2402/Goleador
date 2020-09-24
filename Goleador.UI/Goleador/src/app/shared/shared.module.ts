@@ -6,9 +6,10 @@ import { PomodoroSheetComponent } from './components/pomodoro/pomodoro-sheet/pom
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CoreModule } from '../core/core.module';
 import { SearchComponent } from './components/books/search/search.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 @NgModule({
-  declarations: [PomodoroComponent, PomodoroSheetComponent, SearchComponent],
+  declarations: [PomodoroComponent, PomodoroSheetComponent, SearchComponent, NavbarComponent],
   imports: [
     CommonModule,
     MaterialModule,
@@ -21,7 +22,8 @@ import { SearchComponent } from './components/books/search/search.component';
     PomodoroSheetComponent,
     SearchComponent,
     MaterialModule,
-    CoreModule
+    CoreModule,
+    NavbarComponent
   ],
   entryComponents: [
     PomodoroComponent,

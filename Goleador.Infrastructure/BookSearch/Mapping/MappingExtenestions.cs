@@ -14,7 +14,14 @@ namespace Goleador.Infrastructure.BookSearch.Mapping
             return new BookResponse()
             {
                 TotalItems = volumes.TotalItems ?? 0,
-                Items = volumes.Items.Select(x => new Item() { Title = x.VolumeInfo.Title })
+                Items = volumes.Items.Select(x => new Item()
+                {
+                    Title = x.VolumeInfo.Title,
+                    Thumbnail = x.VolumeInfo.ImageLinks.SmallThumbnail,
+                    Authors = x.VolumeInfo.Authors,
+                    PublishedDate = x.VolumeInfo.PublishedDate,
+                    Id = x.Id
+                })
             };
         }
     }
