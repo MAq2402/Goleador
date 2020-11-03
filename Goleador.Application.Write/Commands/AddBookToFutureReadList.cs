@@ -7,13 +7,23 @@ namespace Goleador.Application.Write.Commands
 {
     public class AddBookToFutureReadList : IRequest
     {
-        public AddBookToFutureReadList(string name, string author)
+        public AddBookToFutureReadList(string title,
+            string authors,
+            string thumbnail,
+            string publishedYear,
+            string externalId)
         {
-            Name = name;
-            Author = author;
+            Title = title;
+            Authors = authors;
+            Thumbnail = thumbnail;
+            PublishedYear = publishedYear;
+            ExternalId = externalId;
         }
 
-        public string Name { get; }
-        public string Author { get; }
+        public string Title { get; }
+        public string Authors { get; }
+        public string Thumbnail { get; }
+        public string PublishedYear { get; }
+        public string ExternalId { get; }
     }
 }

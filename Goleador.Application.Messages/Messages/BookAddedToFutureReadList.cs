@@ -7,18 +7,31 @@ namespace Goleador.Application.Messages.Messages
 {
     public class BookAddedToFutureReadList : IMessage
     {
-        public BookAddedToFutureReadList(Guid id, string name, string author, string status, DateTimeOffset created)
+        public BookAddedToFutureReadList(Guid id,
+            string title,
+            string authors, 
+            string thumbnail,
+            string publishedYear,
+            string externalId,
+            string status, 
+            DateTimeOffset created)
         {
             Id = id;
-            Name = name;
-            Author = author;
+            Title = title;
+            Authors = authors;
+            Thumbnail = thumbnail;
+            PublishedYear = publishedYear;
+            ExternalId = externalId;
             Status = status;
             Created = created;
         }
 
         public Guid Id { get; }
-        public string Name { get; }
-        public string Author { get; }
+        public string Title { get; }
+        public string Authors { get; }
+        public string Thumbnail{ get; }
+        public string PublishedYear { get; }
+        public string ExternalId { get; }
         public string Status { get; }
         public DateTimeOffset Created { get; }
     }

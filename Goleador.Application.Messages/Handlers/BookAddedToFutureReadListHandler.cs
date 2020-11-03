@@ -23,8 +23,11 @@ namespace Goleador.Application.Read.MessageHandlers
             var book = new Book()
             {
                 Id = message.Id,
-                Name = message.Name,
-                Author = message.Author,
+                Title = message.Title,
+                Authors = message.Authors,
+                Thumbnail = message.Thumbnail,
+                ExternalId = message.ExternalId,
+                PublishedYear = message.PublishedYear,
                 Status = message.Status,
                 Created = message.Created
             };

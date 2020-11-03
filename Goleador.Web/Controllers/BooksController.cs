@@ -44,7 +44,8 @@ namespace Goleador.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> AddBookToFutureReadListAsync([FromBody] BookForCreation book)
         {
-            await _mediator.Send(new AddBookToFutureReadList(book.Name, book.Author));
+            await _mediator.Send(new AddBookToFutureReadList(book.Title, book.Authors, book.Thumbnail, 
+                book.PublishedYear, book.ExternalId));
 
             return CreatedAtRoute(null, null);
         }

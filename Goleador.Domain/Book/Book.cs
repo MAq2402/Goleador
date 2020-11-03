@@ -11,16 +11,22 @@ namespace Goleador.Domain.Book
     {
         private readonly List<Pomodoro.Pomodoro> _pomodoros = new List<Pomodoro.Pomodoro>();
 
-        public Book(string name, string author)
+        public Book(string title, string authors, string thumbnail, string publishedYear, string externalId)
         {
-            Name = name;
-            Author = author;
+            Title = title;
+            Authors = authors;
+            Thumbnail = thumbnail;
+            PublishedYear = publishedYear;
+            ExternalId = externalId;
             Status = BookStatus.ToRead;
             Created = DateTimeOffset.Now;
         }
 
-        public string Name { get; private set; }
-        public string Author { get; private set; }
+        public string Title { get; private set; }
+        public string Authors { get; private set; }
+        public string Thumbnail { get; private set; }
+        public string PublishedYear { get; private set; }
+        public string ExternalId { get; private set; }
         public BookStatus Status { get; private set; }
         public DateTimeOffset Created { get; private set; }
         public DateTimeOffset? ReadingStarted { get; private set; }

@@ -13,8 +13,11 @@ POST {{hostName}}/api/book HTTP/1.1
 Content-Type: application/json
 
 {
-    "name": "test2",
-    "author": "test2"
+    "title": "test1",
+    "authors": "test2",
+    "thumbnail": "thumbnail",
+    "publishedYear": "1997",
+    "ExternalId": "2115"
 }
 
 GET {{hostName}}/api/books HTTP/1.1
