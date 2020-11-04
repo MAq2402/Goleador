@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material';
 import { of } from 'rxjs';
@@ -15,6 +15,9 @@ export class SearchComponent {
 
   searchControl = new FormControl();
   books: BookSearchItem[];
+  selectedBook: BookSearchItem;
+
+  @Output() bookSelected = new EventEmitter<BookSearchItem>();
 
   constructor(private bookService: BookService) {
     this.searchControl.valueChanges
@@ -32,6 +35,8 @@ export class SearchComponent {
   }
 
   onSelect(event: MatAutocompleteSelectedEvent) {
-    
+    this.selectedBook = event.option.value;
+    this.bookSelected.emit(this.selectedBook);
+    this.searchControl.setValue(`${this.selectedBook.title}`);
   }
 }
