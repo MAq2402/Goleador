@@ -9,6 +9,7 @@ import { AddBookDialogComponent } from 'src/app/books/add-book-dialog/add-book-d
 })
 export class NavbarComponent implements OnInit {
 
+  pomodoroOpened = false;
   constructor(public dialog: MatDialog) { }
 
   ngOnInit() {
@@ -17,10 +18,13 @@ export class NavbarComponent implements OnInit {
   openAddBookDialog(): void {
     const dialogRef = this.dialog.open(AddBookDialogComponent, {
       width: '700px',
-      // height: '500px'
     });
 
     dialogRef.afterClosed().subscribe(result => {
     });
+  }
+
+  togglePomodoro() {
+    this.pomodoroOpened = !this.pomodoroOpened;
   }
 }
