@@ -52,5 +52,7 @@ export class PomodoroComponent implements OnInit {
   reset(value: number = null) {
     this.timerValueMinutes = value ? value : this.currentTimerType;
     this.currentTimerType = this.timerValueMinutes;
+    this.timerValueSeconds = 0;
+    this.stop();
   }
 }
