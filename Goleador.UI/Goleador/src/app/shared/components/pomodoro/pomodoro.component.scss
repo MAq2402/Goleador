@@ -1,0 +1,15 @@
+.pomodoro-container {
+    z-index: 4;
+    position: absolute;
+    top: 64px;
+    right: 16px;
+    background: #f44336 0% 0% no-repeat padding-box;
+    box-shadow: 3px 3px 20px #00000029;
+    border-radius: 10px;
+    opacity: 1;
+    width: 500px;
+}
+
+.timer {
+    font-size: 50px;
+}

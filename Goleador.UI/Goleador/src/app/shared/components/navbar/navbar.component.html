@@ -4,4 +4,8 @@
   <button (click)="openAddBookDialog()" mat-icon-button>
     <mat-icon>add</mat-icon>
   </button>
+  <button (click)="togglePomodoro()" mat-icon-button>
+    <mat-icon>timer</mat-icon>
+  </button>
+  <app-pomodoro [hidden]="!pomodoroOpened"></app-pomodoro>
 </mat-toolbar>
