@@ -1,1 +1,45 @@
-<p>books works!</p>
+<div class="container">
+    <div class="row header-row mb-4">
+        <div class="col-2">
+        </div>
+        <div class="col-3">
+            Title
+        </div>
+        <div class="col-3">
+            Authors
+        </div>
+        <div class="col-1">
+            Year
+        </div>
+        <div class="col-1">
+            Status
+        </div>
+        <div class="col-2">
+            Pomodoros
+        </div>
+    </div>
+    <mat-card *ngFor="let book of books" class="mb-4 mat-elevation-z24">
+        <mat-card-content>
+            <div class="row">
+                <div class="col-2 image-container">
+                    <img mat-card-image [src]="book.thumbnail">
+                </div>
+                <div class="col-3 my-auto">
+                    {{book.title}}
+                </div>
+                <div class="col-3 my-auto">
+                    {{book.authors}}
+                </div>
+                <div class="col-1 my-auto">
+                    {{book.publishedYear}}
+                </div>
+                <div class="col-1  my-auto">
+                    {{book.status}}
+                </div>
+                <div class="col-2  my-auto pomodoros">
+                    {{book.pomodoros.length}}
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>

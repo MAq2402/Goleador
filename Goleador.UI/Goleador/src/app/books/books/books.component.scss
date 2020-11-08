@@ -1,0 +1,24 @@
+.mat-card {
+    height: 250px;
+    padding: 0;
+    font-size: 16px;
+}
+
+.mat-card-content {
+    font-size: 16px;
+}
+
+.image-container {
+    height: 250px;
+}
+
+mat-card img{
+    padding: 20px;
+    width: auto;
+    max-height:100%;
+    margin: 0;
+}
+
+.header-row {
+    font-size: 13px;
+}
