@@ -8,6 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [],
@@ -20,7 +21,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatInputModule,
     MatToolbarModule,
     MatIconModule,
-    MatDialogModule
+    MatDialogModule,
+    MatCardModule
   ],
   exports: [
     MatBottomSheetModule,
@@ -31,7 +33,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatInputModule,
     MatToolbarModule,
     MatIconModule,
-    MatDialogModule
+    MatDialogModule,
+    MatCardModule
   ]
 })
 export class MaterialModule { }
