@@ -1,15 +1,12 @@
 <form class="form">
-    <mat-form-field class="full-width">
-      <input matInput
-             placeholder="Search for books"
-             [matAutocomplete]="auto"
-             [formControl]="searchControl">
-      <mat-autocomplete (optionSelected)="onSelect($event)" #auto="matAutocomplete">
-        <mat-option *ngFor="let book of books" [value]="book">
-          <img class="option-img" aria-hidden [src]="book.thumbnail" height="40">
-          <span>{{book.title}}</span> -
-          <span *ngFor="let author of book.authors">{{author}}, </span> - 
-          <span>{{book.publishedDate}}</span>
-        </mat-option>
-      </mat-autocomplete>
-    </mat-form-field>
+  <mat-form-field class="full-width">
+    <input matInput placeholder="Search for books" [matAutocomplete]="auto" [formControl]="searchControl">
+    <mat-autocomplete (optionSelected)="onSelect($event)" #auto="matAutocomplete">
+      <mat-option *ngFor="let book of filteredBooks | async" [value]="book">
+        <img class="option-img" aria-hidden [src]="book.thumbnail" height="40">
+        <span>{{book.title}}</span> -
+        <span *ngFor="let author of book.authors">{{author}}, </span> -
+        <span>{{book.publishedDate}}</span>
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>

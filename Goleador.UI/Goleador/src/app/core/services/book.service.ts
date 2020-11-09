@@ -28,4 +28,9 @@ export class BookService {
   addBook(book: BookForCreation): Observable<any> {
     return this.http.post(`${this.baseUrl}`, book).pipe(tap(() => this.bookAddedSubject.next()));
   }
+
+  doPomodoro(bookId: string): Observable<any> {
+    console.log('here');
+    return this.http.post(`${this.baseUrl}/${bookId}/pomodoros`, {});
+  }
 }

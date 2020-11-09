@@ -6,9 +6,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CoreModule } from '../core/core.module';
 import { SearchComponent } from './components/books/search/search.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { FilterBooksByTypePipe } from './pipes/filter-books-by-type-pipe';
 
 @NgModule({
-  declarations: [PomodoroComponent, SearchComponent, NavbarComponent],
+  declarations: [PomodoroComponent, SearchComponent, NavbarComponent, FilterBooksByTypePipe],
   imports: [
     CommonModule,
     MaterialModule,
@@ -21,7 +22,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     SearchComponent,
     MaterialModule,
     CoreModule,
-    NavbarComponent
+    NavbarComponent,
+    FilterBooksByTypePipe
   ],
   entryComponents: [
     PomodoroComponent

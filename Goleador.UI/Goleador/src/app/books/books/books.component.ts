@@ -9,6 +9,7 @@ import { Book } from 'src/app/shared/models/book';
 })
 export class BooksComponent implements OnInit {
 
+  selectedTabIndex = 1;
   books: Book[];
   constructor(private bookService: BookService) { }
 
@@ -18,10 +19,13 @@ export class BooksComponent implements OnInit {
     this.bookService.bookAdded$.subscribe(() => this.loadBooks());
   }
 
-
   private loadBooks() {
     this.bookService.getBooks().subscribe(books => {
       this.books = books;
     });
+  }
+
+  onTabIndexChange(index: number) {
+    this.selectedTabIndex = index;
   }
 }
