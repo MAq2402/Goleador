@@ -10,7 +10,7 @@
         <div class="col-3">
             Title
         </div>
-        <div class="col-3">
+        <div class="col-2">
             Authors
         </div>
         <div class="col-1">
@@ -32,7 +32,7 @@
                 <div class="col-3 my-auto">
                     {{book.title}}
                 </div>
-                <div class="col-3 my-auto">
+                <div class="col-2 my-auto">
                     {{book.authors}}
                 </div>
                 <div class="col-1 my-auto">
@@ -41,8 +41,15 @@
                 <div class="col-1  my-auto">
                     {{book.status}}
                 </div>
-                <div class="col-2 my-auto pomodoros">
+                <div class="col-1 my-auto">
                     {{book.pomodoros.length}}
+                </div>
+                <div [ngSwitch]="book.status" class="col-2 my-auto">
+                    <mat-icon *ngSwitchCase="bookStatuses.ToRead" (click)="startReading(book.id)">menu_book</mat-icon>
+                    <div *ngSwitchCase="bookStatuses.InRead">
+                        <mat-icon class="mr-1" (click)="doPomodoro(book.id)">work</mat-icon>
+                        <mat-icon (click)="finishReading(book.id)">military_tech</mat-icon>
+                    </div>
                 </div>
             </div>
         </mat-card-content>

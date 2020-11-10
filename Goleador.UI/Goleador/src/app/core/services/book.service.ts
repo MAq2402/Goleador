@@ -30,7 +30,10 @@ export class BookService {
   }
 
   doPomodoro(bookId: string): Observable<any> {
-    console.log('here');
     return this.http.post(`${this.baseUrl}/${bookId}/pomodoros`, {});
+  }
+
+  startReading(bookId: string): Observable<any> {
+    return this.http.put(`${this.baseUrl}/startReading/${bookId}`, {});
   }
 }
