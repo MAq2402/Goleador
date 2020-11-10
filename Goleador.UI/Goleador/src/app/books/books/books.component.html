@@ -1,11 +1,16 @@
 <div class="container">
+    <mat-tab-group (selectedIndexChange)="onTabIndexChange($event)" [selectedIndex]="selectedTabIndex" class="mb-4" mat-align-tabs="start">
+        <mat-tab label="To read"></mat-tab>
+        <mat-tab label="In read"></mat-tab>
+        <mat-tab label="Finished"></mat-tab>
+      </mat-tab-group>
     <div class="row header-row mb-4">
         <div class="col-2">
         </div>
         <div class="col-3">
             Title
         </div>
-        <div class="col-3">
+        <div class="col-2">
             Authors
         </div>
         <div class="col-1">
@@ -18,7 +23,7 @@
             Pomodoros
         </div>
     </div>
-    <mat-card *ngFor="let book of books" class="mb-4 mat-elevation-z24">
+    <mat-card *ngFor="let book of (books | filterBooksByType: selectedTabIndex)" class="mb-4 mat-elevation-z24">
         <mat-card-content>
             <div class="row">
                 <div class="col-2 image-container">
@@ -27,7 +32,7 @@
                 <div class="col-3 my-auto">
                     {{book.title}}
                 </div>
-                <div class="col-3 my-auto">
+                <div class="col-2 my-auto">
                     {{book.authors}}
                 </div>
                 <div class="col-1 my-auto">
@@ -36,8 +41,15 @@
                 <div class="col-1  my-auto">
                     {{book.status}}
                 </div>
-                <div class="col-2  my-auto pomodoros">
+                <div class="col-1 my-auto">
                     {{book.pomodoros.length}}
+                </div>
+                <div [ngSwitch]="book.status" class="col-2 my-auto">
+                    <mat-icon *ngSwitchCase="bookStatuses.ToRead" (click)="startReading(book.id)">menu_book</mat-icon>
+                    <div *ngSwitchCase="bookStatuses.InRead">
+                        <mat-icon class="mr-1" (click)="doPomodoro(book.id)">work</mat-icon>
+                        <mat-icon (click)="finishReading(book.id)">military_tech</mat-icon>
+                    </div>
                 </div>
             </div>
         </mat-card-content>

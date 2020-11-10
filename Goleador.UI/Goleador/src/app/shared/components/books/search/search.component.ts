@@ -1,26 +1,37 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material';
-import { of } from 'rxjs';
-import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { debounceTime, distinctUntilChanged, map, startWith, switchMap } from 'rxjs/operators';
 import { BookService } from 'src/app/core/services/book.service';
 import { BookSearchItem } from 'src/app/shared/models/book-search-item';
 
 @Component({
-  selector: 'app-search',
+  selector: 'app-book-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss']
 })
-export class SearchComponent {
+export class SearchComponent implements OnInit {
 
   searchControl = new FormControl();
-  books: BookSearchItem[];
   selectedBook: BookSearchItem;
+  filteredBooks: Observable<BookSearchItem[]>;
 
   @Output() bookSelected = new EventEmitter<BookSearchItem>();
+  @Input() searchInOwnCollection = false;
+  @Input() books: BookSearchItem[] = [];
 
-  constructor(private bookService: BookService) {
-    this.searchControl.valueChanges
+  constructor(private bookService: BookService) { }
+
+  ngOnInit(): void {
+    if (this.searchInOwnCollection) {
+      this.filteredBooks = this.searchControl.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => value ? this.filterBooks(value) : this.books.slice())
+      );
+    } else {
+      this.filteredBooks = this.searchControl.valueChanges
       .pipe(
         debounceTime(400),
         distinctUntilChanged(),
@@ -31,12 +42,25 @@ export class SearchComponent {
             return of([]);
           }
         }
-      )).subscribe(books => this.books = books);
+      ));
+    }
+  }
+
+  private filterBooks(value: string): BookSearchItem[] {
+    const filterValue = value.toLowerCase();
+    console.log(this.books);
+
+    return this.books.filter(b => b.title.toLowerCase().indexOf(filterValue) === 0);
   }
 
   onSelect(event: MatAutocompleteSelectedEvent) {
     this.selectedBook = event.option.value;
     this.bookSelected.emit(this.selectedBook);
     this.searchControl.setValue(`${this.selectedBook.title}`);
+  }
+
+  clear() {
+    this.searchControl.setValue('');
+    this.selectedBook = null;
   }
 }

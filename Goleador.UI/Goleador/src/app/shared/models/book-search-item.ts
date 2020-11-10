@@ -4,4 +4,5 @@ export class BookSearchItem {
     authors: string[];
     publishedDate: string;
     id: string;
+    domainId?: string;
 }

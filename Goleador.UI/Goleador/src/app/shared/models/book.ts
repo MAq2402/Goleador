@@ -1,3 +1,5 @@
+import { BookStatus } from '../enums/book-status.enum';
+
 export interface BookForCreation {
     title: string;
     authors: string[];
@@ -10,7 +12,7 @@ export interface Book {
     id: string;
     title: string;
     authors: string;
-    status: string;
+    status: BookStatus;
     thumbnail: string;
     publishedYear: string;
     externalId: string;
