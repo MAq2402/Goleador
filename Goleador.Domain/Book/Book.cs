@@ -46,7 +46,7 @@ namespace Goleador.Domain.Book
 
         public void FinishReading()
         {
-            if (Status != BookStatus.ToRead)
+            if (Status != BookStatus.InRead)
             {
                 throw new InvalidOperationException("The book is in to read list or has been already finished");
             }

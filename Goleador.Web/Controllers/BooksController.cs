@@ -65,5 +65,13 @@ namespace Goleador.Web.Controllers
 
             return NoContent();
         }
+
+        [HttpPut("finishReading/{id}")]
+        public async Task<IActionResult> FinishReadingAsync(string id)
+        {
+            await _mediator.Send(new FinishReadingBook(new Guid(id)));
+
+            return NoContent();
+        }
     }
 }
