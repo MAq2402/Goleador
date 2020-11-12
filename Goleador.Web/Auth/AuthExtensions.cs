@@ -25,6 +25,7 @@ namespace Goleador.Web.Auth
             {
                 options.Issuer = jwtAppSettingOptions[nameof(JwtIssuerOptions.Issuer)];
                 options.Audience = jwtAppSettingOptions[nameof(JwtIssuerOptions.Audience)];
+                options.ValidFor = TimeSpan.FromMinutes(Convert.ToInt32(jwtAppSettingOptions[nameof(JwtIssuerOptions.ValidFor)]));
                 options.SigningCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
             });
 
