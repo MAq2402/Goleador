@@ -8,6 +8,13 @@
 
 @bookApiUrl = https://www.googleapis.com/books/v1/
 
+POST {{hostName}}/api/auth/register HTTP/1.1
+Content-Type: application/json
+
+{
+    "userName": "maq",
+    "password": "maq"
+}
 
 POST {{hostName}}/api/books HTTP/1.1
 Content-Type: application/json

@@ -2,11 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using Autofac;
 using Goleador.Application.Read.Queries;
 using Goleador.Application.Write.Commands;
 using Goleador.Infrastructure.DbContext;
 using Goleador.Infrastructure.Types;
+using Goleador.Web.Auth;
 using Goleador.Web.Dispatchers;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -15,6 +17,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Goleador.Web
 {
@@ -47,6 +50,9 @@ namespace Goleador.Web
 
             services.AddDbContext<GoleadorDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.ConfigureAuthentication(Configuration,
+               new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Configuration.GetSection("Security")["Key"])));
 
             services.AddMediatR(Assembly.GetAssembly(typeof(AddBookToFutureReadList)),
                 Assembly.GetAssembly(typeof(GetBooksQuery)));
@@ -84,7 +90,8 @@ namespace Goleador.Web
 
             app.UseCors(_goleadorCorsPolicyName);
 
-            app.UseAuthorization();
+            app.UseAuthentication();
+            // app.UseAuthorization();?
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
 

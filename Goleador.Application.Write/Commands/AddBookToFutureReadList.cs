@@ -11,13 +11,15 @@ namespace Goleador.Application.Write.Commands
             IEnumerable<string> authors,
             string thumbnail,
             string publishedYear,
-            string externalId)
+            string externalId,
+            string userId)
         {
             Title = title;
             Authors = authors;
             Thumbnail = thumbnail;
             PublishedYear = publishedYear;
             ExternalId = externalId;
+            UserId = userId;
         }
 
         public string Title { get; }
@@ -25,5 +27,6 @@ namespace Goleador.Application.Write.Commands
         public string Thumbnail { get; }
         public string PublishedYear { get; }
         public string ExternalId { get; }
+        public string UserId { get; }
     }
 }

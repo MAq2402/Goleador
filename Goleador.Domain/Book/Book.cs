@@ -11,7 +11,8 @@ namespace Goleador.Domain.Book
     {
         private readonly List<Pomodoro.Pomodoro> _pomodoros = new List<Pomodoro.Pomodoro>();
 
-        public Book(string title, string authors, string thumbnail, string publishedYear, string externalId)
+        public Book(string title, string authors, string thumbnail, 
+            string publishedYear, string externalId, string userId)
         {
             Title = title;
             Authors = authors;
@@ -20,6 +21,7 @@ namespace Goleador.Domain.Book
             ExternalId = externalId;
             Status = BookStatus.ToRead;
             Created = DateTimeOffset.Now;
+            UserId = userId;
         }
 
         public string Title { get; private set; }
@@ -32,6 +34,7 @@ namespace Goleador.Domain.Book
         public DateTimeOffset? ReadingStarted { get; private set; }
         public DateTimeOffset? ReadingFinished { get; private set; }
         public IEnumerable<Pomodoro.Pomodoro> Pomodoros => _pomodoros.AsEnumerable();
+        public string UserId { get; private set; }
 
         public void StartReading()
         {
