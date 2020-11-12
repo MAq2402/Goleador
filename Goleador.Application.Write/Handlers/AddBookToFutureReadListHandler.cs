@@ -26,7 +26,7 @@ namespace Goleador.Application.Write.CommandHandlers
         public async Task<Unit> Handle(AddBookToFutureReadList request, CancellationToken cancellationToken)
         {
             var book = new Book(request.Title, string.Join(", ", request.Authors), 
-                request.Thumbnail, request.PublishedYear, request.ExternalId);
+                request.Thumbnail, request.PublishedYear, request.ExternalId, request.UserId);
 
             await _bookRepository.AddAsync(book);
 

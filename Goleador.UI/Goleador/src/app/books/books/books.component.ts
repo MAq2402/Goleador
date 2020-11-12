@@ -29,19 +29,26 @@ export class BooksComponent implements OnInit {
 
   startReading(id: string) {
     this.bookService.startReading(id).subscribe(() => {
-      this.loadBooks().subscribe(() => this.selectedTabIndex = 1);
+      this.loadBooks().subscribe(() => {
+        this.selectedTabIndex = 1;
+        this.changeDetecotor.detectChanges();
+      });
     });
   }
 
   doPomodoro(id: string) {
     this.bookService.doPomodoro(id).subscribe(() => {
-      this.loadBooks().subscribe();
-      this.changeDetecotor.detectChanges();
+      this.loadBooks().subscribe(() => this.changeDetecotor.detectChanges());
     });
   }
 
   finishReading(id: string) {
-
+    this.bookService.finishReading(id).subscribe(() => {
+      this.loadBooks().subscribe(() => {
+        this.selectedTabIndex = 2;
+        this.changeDetecotor.detectChanges();
+      });
+    });
   }
 
   private loadBooks(): Observable<Book[]> {

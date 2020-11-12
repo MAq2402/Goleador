@@ -36,4 +36,8 @@ export class BookService {
   startReading(bookId: string): Observable<any> {
     return this.http.put(`${this.baseUrl}/startReading/${bookId}`, {});
   }
+
+  finishReading(bookId: string): Observable<any> {
+    return this.http.put(`${this.baseUrl}/finishReading/${bookId}`, {});
+  }
 }

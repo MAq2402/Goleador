@@ -6,7 +6,6 @@ using Goleador.Application.Read.Queries;
 using Goleador.Application.Write.Commands;
 using Goleador.Application.Write.Models;
 using MediatR;
-using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Goleador.Web.Controllers
@@ -45,7 +44,7 @@ namespace Goleador.Web.Controllers
         public async Task<IActionResult> AddBookToFutureReadListAsync([FromBody] BookForCreation book)
         {
             await _mediator.Send(new AddBookToFutureReadList(book.Title, book.Authors, book.Thumbnail, 
-                book.PublishedYear, book.ExternalId));
+                book.PublishedYear, book.ExternalId, "userIdFromToken"));
 
             return CreatedAtRoute(null, null);
         }
@@ -62,6 +61,14 @@ namespace Goleador.Web.Controllers
         public async Task<IActionResult> DoPomodoro(string id)
         {
             await _mediator.Send(new DoPomodoro(new Guid(id)));
+
+            return NoContent();
+        }
+
+        [HttpPut("finishReading/{id}")]
+        public async Task<IActionResult> FinishReadingAsync(string id)
+        {
+            await _mediator.Send(new FinishReadingBook(new Guid(id)));
 
             return NoContent();
         }

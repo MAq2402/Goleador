@@ -13,17 +13,24 @@
 
   <ItemGroup>
     <PackageReference Include="Google.Apis.Books.v1" Version="1.49.0.2066" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.7">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="3.1.0" />
     <PackageReference Include="MongoDB.Driver" Version="2.11.0" />
     <PackageReference Include="RawRabbit" Version="1.10.4" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Goleador.Application.Contracts\Goleador.Application.Contracts.csproj" />
     <ProjectReference Include="..\Goleador.Domain\Goleador.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Auth\Services\" />
   </ItemGroup>
 
 </Project>
