@@ -6,25 +6,23 @@ using Goleador.Application.Read.Queries;
 using Goleador.Application.Write.Commands;
 using Goleador.Application.Write.Models;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Goleador.Web.Controllers
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class BooksController : ControllerBase
+    [Authorize]
+    public class BooksController : Controller
     {
-        private readonly IMediator _mediator;
 
-        public BooksController(IMediator mediator)
+        public BooksController(IMediator mediator) : base(mediator)
         {
-            _mediator = mediator;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetBooksAsync()
         {
-            return Ok(await _mediator.Send(new GetBooksQuery()));
+            return Ok(await _mediator.Send(new GetBooksQuery(UserId)));
         }
 
         [HttpGet("{id}")]
@@ -44,7 +42,7 @@ namespace Goleador.Web.Controllers
         public async Task<IActionResult> AddBookToFutureReadListAsync([FromBody] BookForCreation book)
         {
             await _mediator.Send(new AddBookToFutureReadList(book.Title, book.Authors, book.Thumbnail, 
-                book.PublishedYear, book.ExternalId, "userIdFromToken"));
+                book.PublishedYear, book.ExternalId, UserId));
 
             return CreatedAtRoute(null, null);
         }

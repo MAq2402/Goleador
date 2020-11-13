@@ -91,7 +91,7 @@ namespace Goleador.Web
             app.UseCors(_goleadorCorsPolicyName);
 
             app.UseAuthentication();
-            // app.UseAuthorization();?
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
 

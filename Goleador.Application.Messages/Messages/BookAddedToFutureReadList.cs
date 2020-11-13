@@ -14,7 +14,8 @@ namespace Goleador.Application.Messages.Messages
             string publishedYear,
             string externalId,
             string status, 
-            DateTimeOffset created)
+            DateTimeOffset created,
+            string userId)
         {
             Id = id;
             Title = title;
@@ -24,6 +25,7 @@ namespace Goleador.Application.Messages.Messages
             ExternalId = externalId;
             Status = status;
             Created = created;
+            UserId = userId;
         }
 
         public Guid Id { get; }
@@ -34,5 +36,6 @@ namespace Goleador.Application.Messages.Messages
         public string ExternalId { get; }
         public string Status { get; }
         public DateTimeOffset Created { get; }
+        public string UserId { get; }
     }
 }

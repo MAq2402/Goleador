@@ -33,7 +33,7 @@ namespace Goleador.Application.Write.CommandHandlers
             await _bookRepository.SaveChangesAsync();
 
             await _messageService.PublishAsync(new BookAddedToFutureReadList(book.Id, book.Title, book.Authors, 
-                request.Thumbnail, request.PublishedYear, request.ExternalId, "To read", book.Created));
+                request.Thumbnail, request.PublishedYear, request.ExternalId, "To read", book.Created, request.UserId));
 
             return Unit.Value;
         }

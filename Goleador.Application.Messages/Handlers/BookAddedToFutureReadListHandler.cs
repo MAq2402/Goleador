@@ -29,7 +29,8 @@ namespace Goleador.Application.Read.MessageHandlers
                 ExternalId = message.ExternalId,
                 PublishedYear = message.PublishedYear,
                 Status = message.Status,
-                Created = message.Created
+                Created = message.Created,
+                UserId = message.UserId
             };
 
             await _bookRepository.InsertOneAsync(book);
