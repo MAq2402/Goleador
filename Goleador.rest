@@ -8,6 +8,17 @@
 
 @bookApiUrl = https://www.googleapis.com/books/v1/
 
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzNGRkNDU0Ni00MDIxLTQzNDEtODRjYy1jZjdlYWE1N2JiZDMiLCJqdGkiOiJmMjM5ODU1OS02NWM1LTQyNzMtYmY0Mi1lMmY2NTI0MzNiZTYiLCJpYXQiOjE2MDUyODY2MzcsInVzZXJJZCI6IjM0ZGQ0NTQ2LTQwMjEtNDM0MS04NGNjLWNmN2VhYTU3YmJkMyIsIm5iZiI6MTYwNTI4NjYzNywiZXhwIjoxNjA1MjkzODM3LCJpc3MiOiJHb2xlYWRvciIsImF1ZCI6Imh0dHBzOi8vbG9jYWxob3N0OjQ0MzIzLyJ9.vipom0KkqSMjJqxt3hESK-gY3gEWi8v4cc9MXLDW2Pw
+
+
+POST {{hostName}}/api/auth/login HTTP/1.1
+Content-Type: application/json
+
+{
+    "userName": "maq",
+    "password": "maq"
+}
+
 POST {{hostName}}/api/auth/register HTTP/1.1
 Content-Type: application/json
 
@@ -18,27 +29,32 @@ Content-Type: application/json
 
 POST {{hostName}}/api/books HTTP/1.1
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {
     "title": "test1",
-    "authors": "test2",
+    "authors": ["test2"],
     "thumbnail": "thumbnail",
     "publishedYear": "1997",
     "ExternalId": "2115"
 }
 
 GET {{hostName}}/api/books HTTP/1.1
+authorization: Bearer {{token}}
 
 GET {{hostName}}/api/books/{{bookId}} HTTP/1.1
+Authorization: Bearer {{token}}
 
 POST {{hostName}}/api/books/{{bookId}}/pomodoros HTTP/1.1
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {
 }
 
 PUT {{hostName}}/api/books/startReading/{{bookId}} HTTP/1.1
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {
 }

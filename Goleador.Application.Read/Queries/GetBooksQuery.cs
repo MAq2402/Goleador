@@ -8,5 +8,11 @@ namespace Goleador.Application.Read.Queries
 {
     public class GetBooksQuery : IRequest<IEnumerable<Book>>
     {
+        public GetBooksQuery(string userId)
+        {
+            UserId = userId;
+        }
+
+        public string UserId { get; }
     }
 }

@@ -3,22 +3,14 @@ using Goleador.Application.Write.Commands;
 using Goleador.Application.Write.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Goleador.Web.Controllers
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class AuthController : ControllerBase
+    public class AuthController : Controller
     {
-        private IMediator _mediator;
-
-        public AuthController(IMediator mediator)
+        public AuthController(IMediator mediator) : base(mediator)
         {
-            _mediator = mediator;
         }
 
         [HttpPost("register")]
@@ -38,16 +30,5 @@ namespace Goleador.Web.Controllers
 
             return Ok(await _mediator.Send(query));
         }
-
-        //[Authorize]
-        //[HttpGet("user")]
-        //public async Task<IActionResult> GetCurrentUser()
-        //{
-        //    var userId = User.Claims.FirstOrDefault(c => c.Type == Constants.UserId)?.Value;
-
-        //    var result = await QueryAsync(new GetUserQuery(userId));
-
-        //    return result.IsSuccess ? (IActionResult)Ok(result.Value) : NotFound(result.Error);
-        //}
     }
 }

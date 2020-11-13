@@ -9,7 +9,7 @@ namespace Goleador.Application.Read.Repositories
 {
     public interface IBookRepository : IReadRepository<Book>
     {
-        Task<IEnumerable<Book>> BooksWithPomodorosAsync();
+        Task<IEnumerable<Book>> BooksWithPomodorosAsync(string userId);
         Task<Book> BookWithPomodorosAsync(Guid requestId);
     }
 }

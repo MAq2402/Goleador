@@ -22,7 +22,7 @@ namespace Goleador.Application.Read.Handlers
 
         public async Task<IEnumerable<Book>> Handle(GetBooksQuery request, CancellationToken cancellationToken)
         {
-            return await _bookRepository.BooksWithPomodorosAsync();
+            return await _bookRepository.BooksWithPomodorosAsync(request.UserId);
         }
     }
 }
