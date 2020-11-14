@@ -7,9 +7,10 @@ import { CoreModule } from '../core/core.module';
 import { SearchComponent } from './components/books/search/search.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FilterBooksByTypePipe } from './pipes/filter-books-by-type-pipe';
+import { SpinnerComponent } from './components/spinner/spinner.component';
 
 @NgModule({
-  declarations: [PomodoroComponent, SearchComponent, NavbarComponent, FilterBooksByTypePipe],
+  declarations: [PomodoroComponent, SearchComponent, NavbarComponent, FilterBooksByTypePipe, SpinnerComponent],
   imports: [
     CommonModule,
     MaterialModule,
@@ -23,7 +24,8 @@ import { FilterBooksByTypePipe } from './pipes/filter-books-by-type-pipe';
     MaterialModule,
     CoreModule,
     NavbarComponent,
-    FilterBooksByTypePipe
+    FilterBooksByTypePipe,
+    SpinnerComponent
   ],
   entryComponents: [
     PomodoroComponent

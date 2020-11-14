@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { AddBookDialogComponent } from 'src/app/books/add-book-dialog/add-book-dialog.component';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -10,9 +11,14 @@ import { AddBookDialogComponent } from 'src/app/books/add-book-dialog/add-book-d
 export class NavbarComponent implements OnInit {
 
   pomodoroOpened = false;
-  constructor(public dialog: MatDialog) { }
+  isUserLogged = false;
+  constructor(public dialog: MatDialog, private authService: AuthService) { }
 
   ngOnInit() {
+    this.isUserLogged = this.authService.isLoggedIn();
+    this.authService.currentUser$.subscribe(() => {
+      this.isUserLogged = this.authService.isLoggedIn();
+    });
   }
 
   openAddBookDialog(): void {
@@ -26,5 +32,9 @@ export class NavbarComponent implements OnInit {
 
   togglePomodoro() {
     this.pomodoroOpened = !this.pomodoroOpened;
+  }
+
+  logOut() {
+    this.authService.logOut();
   }
 }

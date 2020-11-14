@@ -7,5 +7,8 @@
   <button (click)="togglePomodoro()" mat-icon-button>
     <mat-icon>timer</mat-icon>
   </button>
+  <button *ngIf="isUserLogged" (click)="logOut()" mat-icon-button>
+    <mat-icon>highlight_off</mat-icon>
+  </button>
   <app-pomodoro [hidden]="!pomodoroOpened"></app-pomodoro>
 </mat-toolbar>

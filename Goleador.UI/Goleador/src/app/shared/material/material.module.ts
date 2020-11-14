@@ -10,6 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatProgressSpinnerModule, MatSnackBarModule } from '@angular/material';
 
 @NgModule({
   declarations: [],
@@ -24,7 +25,9 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatIconModule,
     MatDialogModule,
     MatCardModule,
-    MatTabsModule
+    MatTabsModule,
+    MatSnackBarModule,
+    MatProgressSpinnerModule
   ],
   exports: [
     MatBottomSheetModule,
@@ -37,7 +40,9 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatIconModule,
     MatDialogModule,
     MatCardModule,
-    MatTabsModule
+    MatTabsModule,
+    MatSnackBarModule,
+    MatProgressSpinnerModule
   ]
 })
 export class MaterialModule { }
