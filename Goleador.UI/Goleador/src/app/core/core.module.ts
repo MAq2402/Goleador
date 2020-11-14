@@ -5,6 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { TokenInterceptor } from './interceptors/token.interceptor';
 import { SnackbarInterceptor } from './interceptors/snackbar.interceptor';
 import { UnauthorizedInterceptor } from './interceptors/unauthorized.interceptor';
+import { SpinnerInterceptor } from './interceptors/spinner.interceptor';
 
 @NgModule({
   declarations: [],
@@ -25,11 +26,11 @@ import { UnauthorizedInterceptor } from './interceptors/unauthorized.interceptor
       useClass: UnauthorizedInterceptor,
       multi: true
     },
-    // {
-    //   provide: HTTP_INTERCEPTORS,
-    //   useClass: SpinnerInterceptor,
-    //   multi: true
-    // },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: SpinnerInterceptor,
+      multi: true
+    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: SnackbarInterceptor,

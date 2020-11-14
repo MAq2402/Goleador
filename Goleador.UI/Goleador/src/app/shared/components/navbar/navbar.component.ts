@@ -15,6 +15,7 @@ export class NavbarComponent implements OnInit {
   constructor(public dialog: MatDialog, private authService: AuthService) { }
 
   ngOnInit() {
+    this.isUserLogged = this.authService.isLoggedIn();
     this.authService.currentUser$.subscribe(() => {
       this.isUserLogged = this.authService.isLoggedIn();
     });

@@ -48,7 +48,6 @@ export class SearchComponent implements OnInit {
 
   private filterBooks(value: string): BookSearchItem[] {
     const filterValue = value.toLowerCase();
-    console.log(this.books);
 
     return this.books.filter(b => b.title.toLowerCase().indexOf(filterValue) === 0);
   }
