@@ -37,7 +37,6 @@ namespace Goleador.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSignalR();
-            services.AddHttpContextAccessor();
             services.AddControllers();
 
             services.AddCors(options =>

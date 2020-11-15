@@ -25,20 +25,9 @@ namespace Goleador.Application.Messages.Decorators
         public async Task HandleAsync(T message)
         {
             await _decorated.HandleAsync(message);
+
             var userId = await _bookRepository.GetUserId(message.AggregateId);
             await _hubService.SendAsync(await _bookRepository.BooksWithPomodorosAsync(userId), userId);
         }
-
-        //public async Task HandleAsync(IMessage message)
-        //{
-        //    await _messageHandler.HandleAsync(message);
-        //    var userId = await _bookRepository.GetUserId(message.AggregateId);
-        //    await _hubService.SendAsync(await _bookRepository.BooksWithPomodorosAsync(userId), userId);
-        //}
-
-        //public Task HandleAsync(T message)
-        //{
-        //    throw new NotImplementedException();
-        //}
     }
 }

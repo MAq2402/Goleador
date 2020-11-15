@@ -32,7 +32,6 @@ namespace Goleador.Web
 
             section.Bind(options);
 
-            
             var client = BusClientFactory.CreateDefault(options);
 
             builder.Register<IBusClient>(context => client).SingleInstance();

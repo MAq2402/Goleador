@@ -15,7 +15,6 @@ namespace Goleador.Application.Messages.Messages
 
         public DateTimeOffset Done { get; }
         public Guid PomodorableId { get; }
-
         public Guid AggregateId => PomodorableId;
     }
 }

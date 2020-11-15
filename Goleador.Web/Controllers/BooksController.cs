@@ -5,36 +5,23 @@ using System.Threading.Tasks;
 using Goleador.Application.Read.Queries;
 using Goleador.Application.Write.Commands;
 using Goleador.Application.Write.Models;
-using Goleador.Infrastructure.RealTimeServices;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SignalR;
 
 namespace Goleador.Web.Controllers
 {
     [Authorize]
     public class BooksController : Controller
     {
-        private IHubContext<BookHub> _hubContext;
-
-        public BooksController(IMediator mediator, IHubContext<BookHub> hubContext) : base(mediator)
+        public BooksController(IMediator mediator) : base(mediator)
         {
-            _hubContext = hubContext;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetBooksAsync()
         {
             return Ok(await _mediator.Send(new GetBooksQuery(UserId)));
-        }
-
-        [HttpGet("subscribe")]
-        public async Task<IActionResult> SubscribeToBooksAsync()
-        {
-            var books = await _mediator.Send(new GetBooksQuery(UserId));
-            await _hubContext.Clients.All.SendAsync("books", books);
-            return Ok("Request Completed");
         }
 
         [HttpGet("{id}")]
