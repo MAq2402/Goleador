@@ -10,6 +10,7 @@ namespace Goleador.Application.Read.Repositories
     public interface IBookRepository : IReadRepository<Book>
     {
         Task<IEnumerable<Book>> BooksWithPomodorosAsync(string userId);
-        Task<Book> BookWithPomodorosAsync(Guid requestId);
+        Task<Book> BookWithPomodorosAsync(Guid id);
+        Task<string> GetUserId(Guid bookId);
     }
 }

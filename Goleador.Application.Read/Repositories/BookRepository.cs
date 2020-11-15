@@ -37,5 +37,10 @@ namespace Goleador.Application.Read.Repositories
 
             return BsonSerializer.Deserialize<Book>(book);
         }
+
+        public async Task<string> GetUserId(Guid bookId)
+        {
+            return (await Collection.Aggregate().Match(b => b.Id == bookId).FirstOrDefaultAsync()).UserId;
+        }
     }
 }

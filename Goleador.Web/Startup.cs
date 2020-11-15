@@ -7,6 +7,7 @@ using Autofac;
 using Goleador.Application.Read.Queries;
 using Goleador.Application.Write.Commands;
 using Goleador.Infrastructure.DbContext;
+using Goleador.Infrastructure.RealTimeServices;
 using Goleador.Infrastructure.Types;
 using Goleador.Web.Auth;
 using Goleador.Web.Dispatchers;
@@ -35,6 +36,8 @@ namespace Goleador.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSignalR();
+            services.AddHttpContextAccessor();
             services.AddControllers();
 
             services.AddCors(options =>
@@ -93,7 +96,10 @@ namespace Goleador.Web
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+            app.UseEndpoints(endpoints => { 
+                endpoints.MapControllers();
+                endpoints.MapHub<BookHub>("hub/books");
+            });
 
             app.SubscribeToMessages();
         }
