@@ -17,7 +17,7 @@ export class SignalRService {
     }
   };
 
-  startConnection() {
+  startBookConnection() {
     this.hubConnection = new signalR.HubConnectionBuilder()
       .withUrl('https://localhost:44323/hub/books', this.options)
       .build();

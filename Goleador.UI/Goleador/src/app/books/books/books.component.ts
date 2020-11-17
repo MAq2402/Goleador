@@ -20,7 +20,7 @@ export class BooksComponent implements OnInit {
 
   ngOnInit() {
     this.loadBooks().subscribe();
-    this.signalRService.startConnection();
+    this.signalRService.startBookConnection();
     this.signalRService.subscribeToBooks();
     this.signalRService.books$.subscribe(books => {
       console.log(books);
