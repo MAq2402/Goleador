@@ -6,9 +6,10 @@ import { tap } from 'rxjs/operators';
 import { LoginCredentials } from 'src/app/shared/models/login-credentials.model';
 import { LoginResponse } from 'src/app/shared/models/login-response.model';
 import { User } from 'src/app/shared/models/user.model';
+import { environment } from 'src/environments/environment';
 
 const TOKEN = 'token';
-const ROUTE = `https://localhost:44323/api/auth/`;
+const ROUTE = `${environment.webApiUrl}api/auth/`;
 
 @Injectable({
   providedIn: 'root'

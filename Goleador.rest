@@ -1,7 +1,7 @@
-//@hostName = http://localhost:8080
+@hostName = http://localhost:8080
 // @hostName = http://localhost:59040
 
-@hostName = https://localhost:44323
+//@hostName = https://localhost:44323
 @bookId = cb219ed6-42c9-4e25-4e47-08d880233818
 
 @bookApiKey = AIzaSyAisGZqCY5mXmgrD0avUdhRACHPLhd_G7I

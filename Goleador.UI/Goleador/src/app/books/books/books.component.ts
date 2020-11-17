@@ -20,13 +20,7 @@ export class BooksComponent implements OnInit {
 
   ngOnInit() {
     this.loadBooks().subscribe();
-    this.signalRService.startBookConnection();
-    this.signalRService.subscribeToBooks();
-    this.signalRService.books$.subscribe(books => {
-      console.log(books);
-      this.books = books;
-      this.changeDetecotor.detectChanges();
-    });
+    this.subscribeToBookChanges();
 
     this.bookService.bookAdded$.subscribe(() => {
       this.selectedTabIndex = 0;
@@ -62,4 +56,15 @@ export class BooksComponent implements OnInit {
       return this.books;
     }));
   }
+
+  private subscribeToBookChanges() {
+    this.signalRService.startBookConnection();
+    this.signalRService.subscribeToBooks();
+    this.signalRService.books$.subscribe(books => {
+      console.log(books);
+      this.books = books;
+      this.changeDetecotor.detectChanges();
+    });
+  }
+
 }

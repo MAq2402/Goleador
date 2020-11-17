@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import * as signalR from '@aspnet/signalr';
 import { Subject } from 'rxjs';
 import { Book } from 'src/app/shared/models/book';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ export class SignalRService {
 
   startBookConnection() {
     this.hubConnection = new signalR.HubConnectionBuilder()
-      .withUrl('https://localhost:44323/hub/books', this.options)
+      .withUrl(`${environment.webApiUrl}hub/books`, this.options)
       .build();
 
     this.hubConnection

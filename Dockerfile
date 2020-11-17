@@ -9,6 +9,7 @@ ENV environment=docker
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
 COPY ["Goleador.Web/Goleador.Web.csproj", "Goleador.Web/"]
+COPY ["Goleador.Application.Contract/Goleador.Application.Contract.csproj", "Goleador.Application.Contract/"]
 COPY ["Goleador.Application.Write/Goleador.Application.Write.csproj", "Goleador.Application.Write/"]
 COPY ["Goleador.Application.Messages/Goleador.Application.Messages.csproj", "Goleador.Application.Messages/"]
 COPY ["Goleador.Application.Read/Goleador.Application.Read.csproj", "Goleador.Application.Read/"]
