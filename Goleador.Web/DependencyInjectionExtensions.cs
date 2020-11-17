@@ -4,13 +4,16 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using Autofac;
+using Goleador.Application.Messages.Decorators;
 using Goleador.Application.Messages.Handlers;
 using Goleador.Application.Messages.Messages;
 using Goleador.Application.Read.Repositories;
 using Goleador.Domain.Base;
 using Goleador.Infrastructure.BookSearch.Services;
 using Goleador.Infrastructure.Messages;
+using Goleador.Infrastructure.RealTimeServices;
 using Goleador.Infrastructure.Repositories;
+using Microsoft.AspNetCore.SignalR;
 
 namespace Goleador.Web
 {
@@ -20,6 +23,7 @@ namespace Goleador.Web
         {
             builder.RegisterAssemblyTypes(Assembly.GetAssembly(typeof(BookAddedToFutureReadList)))
                 .AsClosedTypesOf(typeof(IMessageHandler<>));
+            builder.RegisterGenericDecorator(typeof(PublishBooksToHubDecorator<>), typeof(IMessageHandler<>));
         }
 
         public static void RegisterRepositories(this ContainerBuilder builder)
@@ -33,6 +37,8 @@ namespace Goleador.Web
         {
             builder.RegisterType<MessageService>().As<IMessageService>();
             builder.RegisterType<BookSearchService>().As<IBookSearchService>();
+            builder.RegisterType<BookHubService>().As<IBookHubService>();
+            builder.RegisterType<UserIdProvider>().As<IUserIdProvider>();
         }
     }
 }

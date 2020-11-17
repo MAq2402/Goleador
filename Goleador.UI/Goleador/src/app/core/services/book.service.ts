@@ -4,13 +4,14 @@ import { Observable, Subject } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { Book, BookForCreation } from 'src/app/shared/models/book';
 import { BookSearchItem } from 'src/app/shared/models/book-search-item';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BookService {
 
-  private baseUrl = 'https://localhost:44323/api/books';
+  private baseUrl = `${environment.webApiUrl}api/books`;
   private bookAddedSubject = new Subject<void>();
 
   public bookAdded$ = this.bookAddedSubject.asObservable();

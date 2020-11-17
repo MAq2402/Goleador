@@ -14,7 +14,6 @@ namespace Goleador.Web.Controllers
     [Authorize]
     public class BooksController : Controller
     {
-
         public BooksController(IMediator mediator) : base(mediator)
         {
         }

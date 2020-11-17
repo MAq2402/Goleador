@@ -13,5 +13,6 @@ namespace Goleador.Application.Messages.Messages
         }
 
         public Guid Id { get; }
+        public Guid AggregateId => Id;
     }
 }

@@ -37,5 +37,6 @@ namespace Goleador.Application.Messages.Messages
         public string Status { get; }
         public DateTimeOffset Created { get; }
         public string UserId { get; }
+        public Guid AggregateId => Id;
     }
 }
