@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Goleador.Application.Shared.Exceptions;
 using Goleador.Application.Write.Commands;
 using Goleador.Domain.Base;
 using Goleador.Domain.Book;
@@ -24,6 +25,11 @@ namespace Goleador.Application.Write.Handlers
         public async Task<Unit> Handle(DoPomodoro request, CancellationToken cancellationToken)
         {
             var book = await _bookRepository.GetAsync(request.PomodorableId);
+
+            if(book == null)
+            {
+                throw new NotFoundException($"Book with id: {request.PomodorableId} does not exist.");
+            }
 
             book.DoPomodoro();
 
