@@ -21,7 +21,6 @@ namespace Goleador.Application.Messages.Handlers
         {
             var updateDictionary = new Dictionary<string, object>
             {
-
                 { nameof(Book.ReadingFinished), message.OccuredOn },
                 { nameof(Book.Status), "Finished"}
             };
