@@ -9,7 +9,7 @@ namespace Goleador.Domain.Base
     {
         Task AddAsync(T aggregateRoot);
         Task RemoveAsync(T aggregateRoot);
-        Task SaveChangesAsync();
+        Task SaveChangesAsync(T aggregateRoot);
         Task<T> GetAsync(Guid aggregateRootId);
     }
 }

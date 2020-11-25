@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using Goleador.Application.Messages.Handlers;
-using Goleador.Application.Messages.Messages;
 using Goleador.Application.Read.Models;
+using Goleador.Domain.Book.Events;
 using Goleador.Infrastructure.Repositories;
 
 namespace Goleador.Application.Read.MessageHandlers
 {
-    public class BookAddedToFutureReadListHandler : IMessageHandler<BookAddedToFutureReadList>
+    public class BookAddedToFutureReadListHandler : IMessageHandler<BookCreated>
     {
         private readonly IReadRepository<Book> _bookRepository;
 
@@ -18,11 +18,11 @@ namespace Goleador.Application.Read.MessageHandlers
             _bookRepository = bookRepository;
         }
 
-        public async Task HandleAsync(BookAddedToFutureReadList message)
+        public async Task HandleAsync(BookCreated message)
         {
             var book = new Book()
             {
-                Id = message.Id,
+                Id = message.AggregateId,
                 Title = message.Title,
                 Authors = message.Authors,
                 Thumbnail = message.Thumbnail,

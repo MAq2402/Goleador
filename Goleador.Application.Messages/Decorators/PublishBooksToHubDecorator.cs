@@ -1,15 +1,12 @@
 ﻿using Goleador.Application.Messages.Handlers;
 using Goleador.Application.Read.Repositories;
+using Goleador.Domain.Base;
 using Goleador.Infrastructure.RealTimeServices;
-using Goleador.Infrastructure.Types;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Goleador.Application.Messages.Decorators
 {
-    public class PublishBooksToHubDecorator<T> : IMessageHandler<T> where T: IMessage
+    public class PublishBooksToHubDecorator<T> : IMessageHandler<T> where T: IEvent
     {
         private readonly IMessageHandler<T> _decorated;
         private readonly IBookHubService _hubService;
@@ -22,11 +19,11 @@ namespace Goleador.Application.Messages.Decorators
             _bookRepository = bookRepository;
         }
 
-        public async Task HandleAsync(T message)
+        public async Task HandleAsync(T @event)
         {
-            await _decorated.HandleAsync(message);
+            await _decorated.HandleAsync(@event);
 
-            var userId = await _bookRepository.GetUserId(message.AggregateId);
+            var userId = await _bookRepository.GetUserId(@event.AggregateId);
             await _hubService.SendAsync(await _bookRepository.BooksWithPomodorosAsync(userId), userId);
         }
     }

@@ -71,7 +71,7 @@ namespace Goleador.Web
             builder.Register(context => appSettings).SingleInstance();
             builder.RegisterRepositories();
             builder.RegisterServices();
-            builder.RegisterType<MessageDispatcher>().As<IMessageDispatcher>();
+            builder.RegisterDispatchers();
             builder.RegisterRabbitMq(Configuration.GetSection("RabbitMq"));
             builder.RegisterMessageHandlers();
         }

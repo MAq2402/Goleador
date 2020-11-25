@@ -11,6 +11,6 @@ namespace Goleador.Infrastructure.Repositories
         Task<IEnumerable<T>> GetAllAsync();
         Task InsertOneAsync(T entity);
         Task<T> GetAsync(Guid id);
-        Task UpdateAsync(Guid id, Dictionary<string, string> fieldValuePairs);
+        Task UpdateAsync(Guid id, Dictionary<string, object> fieldValuePairs);
     }
 }

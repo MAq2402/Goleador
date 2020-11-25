@@ -1,5 +1,5 @@
-﻿using Goleador.Application.Messages.Messages;
-using Goleador.Application.Read.Models;
+﻿using Goleador.Application.Read.Models;
+using Goleador.Domain.Book.Events;
 using Goleador.Infrastructure.Repositories;
 using System;
 using System.Collections.Generic;
@@ -19,12 +19,14 @@ namespace Goleador.Application.Messages.Handlers
 
         public async Task HandleAsync(ReadingBookFinished message)
         {
-            var updateDictionary = new Dictionary<string, string>
+            var updateDictionary = new Dictionary<string, object>
             {
-                { "Status", "Finished"}
+
+                { nameof(Book.ReadingFinished), message.OccuredOn },
+                { nameof(Book.Status), "Finished"}
             };
 
-            await _bookRepository.UpdateAsync(message.Id, updateDictionary);
+            await _bookRepository.UpdateAsync(message.AggregateId, updateDictionary);
         }
     }
 }

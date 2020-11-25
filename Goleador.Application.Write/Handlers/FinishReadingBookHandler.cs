@@ -1,5 +1,4 @@
-﻿using Goleador.Application.Messages.Messages;
-using Goleador.Application.Write.Commands;
+﻿using Goleador.Application.Write.Commands;
 using Goleador.Domain.Base;
 using Goleador.Domain.Book;
 using Goleador.Infrastructure.Messages;
@@ -15,12 +14,10 @@ namespace Goleador.Application.Write.Handlers
     public class FinishReadingBookHandler : IRequestHandler<FinishReadingBook>
     {
         private readonly IRepository<Book> _bookRepository;
-        private readonly IMessageService _messageService;
 
-        public FinishReadingBookHandler(IRepository<Book> bookRepository, IMessageService messageService)
+        public FinishReadingBookHandler(IRepository<Book> bookRepository)
         {
             _bookRepository = bookRepository;
-            _messageService = messageService;
         }
 
         public async Task<Unit> Handle(FinishReadingBook request, CancellationToken cancellationToken)
@@ -29,9 +26,7 @@ namespace Goleador.Application.Write.Handlers
 
             book.FinishReading();
 
-            await _bookRepository.SaveChangesAsync();
-
-            await _messageService.PublishAsync(new ReadingBookFinished(book.Id));
+            await _bookRepository.SaveChangesAsync(book);
 
             return Unit.Value;
         }
