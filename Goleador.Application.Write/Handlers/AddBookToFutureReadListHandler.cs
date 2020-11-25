@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Goleador.Application.Messages.Messages;
 using Goleador.Application.Write.Commands;
 using Goleador.Domain.Base;
 using Goleador.Domain.Book;
-using Goleador.Infrastructure.Messages;
 using MediatR;
 
 namespace Goleador.Application.Write.CommandHandlers
@@ -15,12 +13,10 @@ namespace Goleador.Application.Write.CommandHandlers
     public class AddBookToFutureReadListHandler : IRequestHandler<AddBookToFutureReadList>
     {
         private readonly IRepository<Book> _bookRepository;
-        private readonly IMessageService _messageService;
 
-        public AddBookToFutureReadListHandler(IRepository<Book> bookRepository, IMessageService messageService)
+        public AddBookToFutureReadListHandler(IRepository<Book> bookRepository)
         {
             _bookRepository = bookRepository;
-            _messageService = messageService;
         }
 
         public async Task<Unit> Handle(AddBookToFutureReadList request, CancellationToken cancellationToken)
@@ -30,10 +26,7 @@ namespace Goleador.Application.Write.CommandHandlers
 
             await _bookRepository.AddAsync(book);
 
-            await _bookRepository.SaveChangesAsync();
-
-            await _messageService.PublishAsync(new BookAddedToFutureReadList(book.Id, book.Title, book.Authors, 
-                request.Thumbnail, request.PublishedYear, request.ExternalId, "To read", book.Created, request.UserId));
+            await _bookRepository.SaveChangesAsync(book);
 
             return Unit.Value;
         }

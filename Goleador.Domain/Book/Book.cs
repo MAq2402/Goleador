@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Goleador.Domain.Base;
-using Goleador.Domain.Pomodoro;
+using Goleador.Domain.Book.Events;
 
 namespace Goleador.Domain.Book
 {
@@ -12,7 +12,7 @@ namespace Goleador.Domain.Book
         private readonly List<Pomodoro.Pomodoro> _pomodoros = new List<Pomodoro.Pomodoro>();
 
         public Book(string title, string authors, string thumbnail, 
-            string publishedYear, string externalId, string userId)
+            string publishedYear, string externalId, string userId) : base(Guid.NewGuid())
         {
             Title = title;
             Authors = authors;
@@ -22,6 +22,14 @@ namespace Goleador.Domain.Book
             Status = BookStatus.ToRead;
             Created = DateTimeOffset.Now;
             UserId = userId;
+
+            AddEvent(new BookCreated(Id, Title, Authors,
+                Thumbnail, PublishedYear, ExternalId, "To read", Created, UserId));
+        }
+
+        private Book()
+        {
+
         }
 
         public string Title { get; private set; }
@@ -45,6 +53,8 @@ namespace Goleador.Domain.Book
 
             Status = BookStatus.InRead;
             ReadingStarted = DateTimeOffset.Now;
+
+            AddEvent(new ReadingBookStarted(Id, ReadingStarted.Value));
         }
 
         public void FinishReading()
@@ -56,6 +66,8 @@ namespace Goleador.Domain.Book
 
             Status = BookStatus.Finished;
             ReadingFinished = DateTimeOffset.Now;
+
+            AddEvent(new ReadingBookFinished(Id, ReadingFinished.Value));
         }
 
         public void DoPomodoro()
@@ -65,7 +77,11 @@ namespace Goleador.Domain.Book
                 throw new InvalidOperationException("Pomodoro can be only done on book that is in read state");
             }
 
-            _pomodoros.Add(new Pomodoro.Pomodoro());
+            var pomodoro = new Pomodoro.Pomodoro();
+
+            _pomodoros.Add(pomodoro);
+
+            AddEvent(new PomodoroDone(pomodoro.Done, Id));
         }
     }
 }

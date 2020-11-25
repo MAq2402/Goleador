@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using Goleador.Infrastructure.Types;
+using Goleador.Domain.Base;
 using Goleador.Web.Dispatchers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
@@ -44,7 +44,7 @@ namespace Goleador.Web
             var busClient = app.ApplicationServices.GetService<IBusClient>();
 
             busClient
-                .SubscribeAsync<IMessage>(async (message, context) =>
+                .SubscribeAsync<IEvent>(async (message, context) =>
                 {
                     await messageDispatcher.DispatchAsync(message);
                 });

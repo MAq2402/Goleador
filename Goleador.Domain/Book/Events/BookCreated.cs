@@ -1,23 +1,23 @@
-﻿using System;
+﻿using Goleador.Domain.Base;
+using System;
 using System.Collections.Generic;
 using System.Text;
-using Goleador.Infrastructure.Types;
 
-namespace Goleador.Application.Messages.Messages
+namespace Goleador.Domain.Book.Events
 {
-    public class BookAddedToFutureReadList : IMessage
+    public class BookCreated : IEvent
     {
-        public BookAddedToFutureReadList(Guid id,
+        public BookCreated(Guid aggregateId,
             string title,
-            string authors, 
+            string authors,
             string thumbnail,
             string publishedYear,
             string externalId,
-            string status, 
+            string status,
             DateTimeOffset created,
             string userId)
         {
-            Id = id;
+            AggregateId = aggregateId;
             Title = title;
             Authors = authors;
             Thumbnail = thumbnail;
@@ -28,15 +28,14 @@ namespace Goleador.Application.Messages.Messages
             UserId = userId;
         }
 
-        public Guid Id { get; }
         public string Title { get; }
         public string Authors { get; }
-        public string Thumbnail{ get; }
+        public string Thumbnail { get; }
         public string PublishedYear { get; }
         public string ExternalId { get; }
         public string Status { get; }
         public DateTimeOffset Created { get; }
         public string UserId { get; }
-        public Guid AggregateId => Id;
+        public Guid AggregateId { get; }
     }
 }

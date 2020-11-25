@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Goleador.Domain.Base;
 using Goleador.Infrastructure.Types;
 using RawRabbit;
 
@@ -16,9 +17,9 @@ namespace Goleador.Infrastructure.Messages
             _client = client;
         }
 
-        public async Task PublishAsync(IMessage message)
+        public async Task PublishAsync(IEvent @event)
         {
-            await _client.PublishAsync(message);
+            await _client.PublishAsync(@event);
         }
     }
 }

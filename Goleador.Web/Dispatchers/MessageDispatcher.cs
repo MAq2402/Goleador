@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Autofac;
 using Goleador.Application.Messages.Handlers;
-using Goleador.Infrastructure.Types;
+using Goleador.Domain.Base;
 
 namespace Goleador.Web.Dispatchers
 {
@@ -18,14 +18,14 @@ namespace Goleador.Web.Dispatchers
             _context = context;
         }
 
-        public async Task DispatchAsync<T>(T message) where T : IMessage
+        public async Task DispatchAsync<T>(T @event) where T : IEvent
         {
             var handlerType = typeof(IMessageHandler<>)
-                .MakeGenericType(message.GetType());
+                .MakeGenericType(@event.GetType());
 
             dynamic handler = _context.Resolve(handlerType);
 
-            await handler.HandleAsync((dynamic)message);
+            await handler.HandleAsync((dynamic)@event);
         }
     }
 }

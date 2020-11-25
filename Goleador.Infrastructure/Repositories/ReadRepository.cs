@@ -41,15 +41,17 @@ namespace Goleador.Infrastructure.Repositories
             return (await Collection.FindAsync(x => x.Id == id)).FirstOrDefault();
         }
 
-        public async Task UpdateAsync(Guid id, Dictionary<string, string> fieldValuePairs)
+        public async Task UpdateAsync(Guid id, Dictionary<string, object> fieldValuePairs)
         {
-            UpdateDefinition<T> update = null;
+            var updates = new List<UpdateDefinition<T>>();
             foreach (var (key, value) in fieldValuePairs)
             {
-                update = Builders<T>.Update.Set(key, value);
+                updates.Add(Builders<T>.Update.Set(key, value));
             }
 
-            await Collection.FindOneAndUpdateAsync(x => x.Id == id, update);
+            var combinedUpdate = Builders<T>.Update.Combine(updates);
+
+            await Collection.FindOneAndUpdateAsync(x => x.Id == id, combinedUpdate);
         }
     }
 }

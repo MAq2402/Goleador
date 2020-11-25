@@ -6,5 +6,6 @@ namespace Goleador.Domain.Base
 {
     public interface IEvent
     {
+        public Guid AggregateId { get; }
     }
 }

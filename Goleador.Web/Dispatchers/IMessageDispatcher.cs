@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Goleador.Infrastructure.Types;
+using Goleador.Domain.Base;
 
 namespace Goleador.Web.Dispatchers
 {
     public interface IMessageDispatcher
     {
-        Task DispatchAsync<T>(T message) where T : IMessage;
+        Task DispatchAsync<T>(T @event) where T : IEvent;
     }
 }

@@ -6,13 +6,15 @@ using System.Threading.Tasks;
 using Autofac;
 using Goleador.Application.Messages.Decorators;
 using Goleador.Application.Messages.Handlers;
-using Goleador.Application.Messages.Messages;
+using Goleador.Application.Read.MessageHandlers;
 using Goleador.Application.Read.Repositories;
 using Goleador.Domain.Base;
 using Goleador.Infrastructure.BookSearch.Services;
+using Goleador.Infrastructure.Events;
 using Goleador.Infrastructure.Messages;
 using Goleador.Infrastructure.RealTimeServices;
 using Goleador.Infrastructure.Repositories;
+using Goleador.Web.Dispatchers;
 using Microsoft.AspNetCore.SignalR;
 
 namespace Goleador.Web
@@ -21,7 +23,7 @@ namespace Goleador.Web
     {
         public static void RegisterMessageHandlers(this ContainerBuilder builder)
         {
-            builder.RegisterAssemblyTypes(Assembly.GetAssembly(typeof(BookAddedToFutureReadList)))
+            builder.RegisterAssemblyTypes(Assembly.GetAssembly(typeof(BookAddedToFutureReadListHandler)))
                 .AsClosedTypesOf(typeof(IMessageHandler<>));
             builder.RegisterGenericDecorator(typeof(PublishBooksToHubDecorator<>), typeof(IMessageHandler<>));
         }
@@ -39,6 +41,12 @@ namespace Goleador.Web
             builder.RegisterType<BookSearchService>().As<IBookSearchService>();
             builder.RegisterType<BookHubService>().As<IBookHubService>();
             builder.RegisterType<UserIdProvider>().As<IUserIdProvider>();
+        }
+
+        public static void RegisterDispatchers(this ContainerBuilder builder)
+        {
+            builder.RegisterType<MessageDispatcher>().As<IMessageDispatcher>();
+            builder.RegisterType<EventDispatcher>().As<IEventDispatcher>();
         }
     }
 }

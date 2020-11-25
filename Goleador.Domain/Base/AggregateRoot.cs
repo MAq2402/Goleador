@@ -6,8 +6,8 @@ namespace Goleador.Domain.Base
 {
     public abstract class AggregateRoot : Entity
     {
-        private static readonly List<IEvent> _events = new List<IEvent>();
-        public static IEnumerable<IEvent> Events => _events;
+        private readonly List<IEvent> _events = new List<IEvent>();
+        public IEnumerable<IEvent> Events => _events;
 
         protected AggregateRoot(Guid id) : base(id)
         {
@@ -22,7 +22,7 @@ namespace Goleador.Domain.Base
             _events.Add(@event);
         }
 
-        public static void ClearEvents()
+        public void ClearEvents()
         {
             _events.Clear();
         }
