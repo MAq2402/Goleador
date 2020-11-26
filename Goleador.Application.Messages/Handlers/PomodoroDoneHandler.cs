@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using Goleador.Application.Read.Models;
+using Goleador.Application.Read.Repositories;
 using Goleador.Domain.Book.Events;
-using Goleador.Infrastructure.Repositories;
 
 namespace Goleador.Application.Messages.Handlers
 {
     public class PomodoroDoneHandler : IMessageHandler<PomodoroDone>
     {
-        private readonly IReadRepository<Pomodoro> _pomodoroRepository;
+        private readonly IRepository<Pomodoro> _pomodoroRepository;
 
-        public PomodoroDoneHandler(IReadRepository<Pomodoro> pomodoroRepository)
+        public PomodoroDoneHandler(IRepository<Pomodoro> pomodoroRepository)
         {
             _pomodoroRepository = pomodoroRepository;
         }

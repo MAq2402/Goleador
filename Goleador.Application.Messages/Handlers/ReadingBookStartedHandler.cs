@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using Goleador.Application.Read.Models;
+using Goleador.Application.Read.Repositories;
 using Goleador.Domain.Book.Events;
-using Goleador.Infrastructure.Repositories;
 
 namespace Goleador.Application.Messages.Handlers
 {
     public class ReadingBookStartedHandler : IMessageHandler<ReadingBookStarted>
     {
-        private readonly IReadRepository<Book> _bookRepository;
+        private readonly IRepository<Book> _bookRepository;
 
-        public ReadingBookStartedHandler(IReadRepository<Book> bookRepository)
+        public ReadingBookStartedHandler(IRepository<Book> bookRepository)
         {
             _bookRepository = bookRepository;
         }

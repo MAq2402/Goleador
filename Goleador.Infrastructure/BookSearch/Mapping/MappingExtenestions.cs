@@ -2,19 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Goleador.Infrastructure.BookSearch.Models;
+using Goleador.Application.Read.Models;
 using Google.Apis.Books.v1.Data;
 
 namespace Goleador.Infrastructure.BookSearch.Mapping
 {
     public static class MappingExtensions
     {
-        public static BookResponse MapToBookResponse(this Volumes volumes) 
+        public static SearchedBookCollection MapToSearchedBookCollection(this Volumes volumes) 
         {
-            return new BookResponse()
+            return new SearchedBookCollection()
             {
                 TotalItems = volumes.TotalItems ?? 0,
-                Items = volumes.Items.Select(x => new Item()
+                Items = volumes.Items.Select(x => new SearchedBookItem()
                 {
                     Title = x.VolumeInfo.Title,
                     Thumbnail = x.VolumeInfo.ImageLinks.SmallThumbnail,

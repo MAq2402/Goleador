@@ -2,7 +2,6 @@
 using Goleador.Application.Write.Commands;
 using Goleador.Domain.Base;
 using Goleador.Domain.Book;
-using Goleador.Infrastructure.Messages;
 using MediatR;
 using System;
 using System.Collections.Generic;

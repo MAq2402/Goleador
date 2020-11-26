@@ -1,4 +1,4 @@
-﻿using Goleador.Application.Contracts.Services;
+﻿using Goleador.Application.Shared.Services;
 using Goleador.Application.Write.Commands;
 using MediatR;
 using System;

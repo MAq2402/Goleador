@@ -1,7 +1,7 @@
 ﻿using Goleador.Application.Messages.Handlers;
 using Goleador.Application.Read.Repositories;
+using Goleador.Application.Read.Services;
 using Goleador.Domain.Base;
-using Goleador.Infrastructure.RealTimeServices;
 using System.Threading.Tasks;
 
 namespace Goleador.Application.Messages.Decorators

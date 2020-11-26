@@ -8,7 +8,6 @@ using Goleador.Application.Shared.Exceptions;
 using Goleador.Application.Write.Commands;
 using Goleador.Domain.Base;
 using Goleador.Domain.Book;
-using Goleador.Infrastructure.Messages;
 using MediatR;
 
 namespace Goleador.Application.Write.Handlers

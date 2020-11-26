@@ -2,20 +2,20 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Goleador.Application.Read.Models;
+using Goleador.Application.Read.Repositories;
 using Goleador.Infrastructure.Types;
 using MongoDB.Bson;
-using MongoDB.Bson.Serialization;
-using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Driver;
 #pragma warning disable 618
 
 namespace Goleador.Infrastructure.Repositories
 {
-    public class ReadRepository<T> : IReadRepository<T> where T : ReadModel
+    public class MongoReadRepository<T> : IRepository<T> where T : ReadModel
     {
         protected IMongoCollection<T> Collection { get; }
 
-        public ReadRepository(Settings settings)
+        public MongoReadRepository(Settings settings)
         {
             BsonDefaults.GuidRepresentation = GuidRepresentation.Standard;
             var client = new MongoClient(settings.MongoSettings.ConnectionString);

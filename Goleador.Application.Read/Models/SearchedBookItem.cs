@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Goleador.Infrastructure.BookSearch.Models
+namespace Goleador.Application.Read.Models
 {
-    public class Item
+    public class SearchedBookItem
     {
         public string Title { get; set; }
         public string Thumbnail { get; set; }

@@ -4,16 +4,16 @@ using System.Text;
 using System.Threading.Tasks;
 using Goleador.Application.Messages.Handlers;
 using Goleador.Application.Read.Models;
+using Goleador.Application.Read.Repositories;
 using Goleador.Domain.Book.Events;
-using Goleador.Infrastructure.Repositories;
 
 namespace Goleador.Application.Read.MessageHandlers
 {
     public class BookAddedToFutureReadListHandler : IMessageHandler<BookCreated>
     {
-        private readonly IReadRepository<Book> _bookRepository;
+        private readonly IRepository<Book> _bookRepository;
 
-        public BookAddedToFutureReadListHandler(IReadRepository<Book> bookRepository)
+        public BookAddedToFutureReadListHandler(IRepository<Book> bookRepository)
         {
             _bookRepository = bookRepository;
         }
