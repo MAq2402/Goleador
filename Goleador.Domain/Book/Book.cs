@@ -20,7 +20,7 @@ namespace Goleador.Domain.Book
             Thumbnail = thumbnail;
             PublishedYear = publishedYear;
             ExternalId = externalId;
-            Status = BookStatus.ToRead;
+            Status = ReadingStatus.ToRead;
             Created = DateTimeOffset.Now;
             UserId = userId;
 
@@ -38,42 +38,30 @@ namespace Goleador.Domain.Book
         public string Thumbnail { get; private set; }
         public string PublishedYear { get; private set; }
         public string ExternalId { get; private set; }
-        public BookStatus Status { get; private set; }
-        public DateTimeOffset Created { get; private set; }
+        public ReadingStatus Status { get; private set; }
         public DateTimeOffset? ReadingStarted { get; private set; }
         public DateTimeOffset? ReadingFinished { get; private set; }
+        public DateTimeOffset Created { get; private set; }
         public IEnumerable<Pomodoro.Pomodoro> Pomodoros => _pomodoros.AsEnumerable();
         public string UserId { get; private set; }
 
         public void StartReading()
         {
-            if (Status != BookStatus.ToRead)
-            {
-                throw new DomainException("The book is in read or has been already finished");
-            }
-
-            Status = BookStatus.InRead;
+            Status = Status.StartReading();
             ReadingStarted = DateTimeOffset.Now;
-
             AddEvent(new ReadingBookStarted(Id, ReadingStarted.Value));
         }
 
         public void FinishReading()
         {
-            if (Status != BookStatus.InRead)
-            {
-                throw new DomainException("The book is in to read list or has been already finished");
-            }
-
-            Status = BookStatus.Finished;
+            Status = Status.FinishReading();
             ReadingFinished = DateTimeOffset.Now;
-
             AddEvent(new ReadingBookFinished(Id, ReadingFinished.Value));
         }
 
         public void DoPomodoro()
         {
-            if (Status != BookStatus.InRead)
+            if (Status != ReadingStatus.InRead)
             {
                 throw new DomainException("Pomodoro can be only done on book that is in read state");
             }

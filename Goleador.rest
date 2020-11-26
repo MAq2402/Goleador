@@ -2,7 +2,7 @@
 // @hostName = http://localhost:59040
 
 @hostName = https://localhost:44323
-@bookId = 0745399d-ecd8-498d-9747-644444a46ef1
+@bookId = a7dd728a-0066-4bcc-872c-0d7a59c4f158
 
 @bookApiKey = AIzaSyAisGZqCY5mXmgrD0avUdhRACHPLhd_G7I
 
@@ -32,7 +32,7 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-    "title": "refaktor",
+    "title": "vo",
     "authors": ["test2"],
     "thumbnail": "thumbnail",
     "publishedYear": "1997",
