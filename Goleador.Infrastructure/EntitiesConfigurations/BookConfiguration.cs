@@ -21,6 +21,9 @@ namespace Goleador.Infrastructure.EntitiesConfigurations
                 p.HasKey("Id");
             });
 
+            builder.OwnsOne(b => b.Status, a => 
+                a.Property(p => p.Value).HasColumnName("Status"));
+
             builder.Metadata.FindNavigation(nameof(Book.Pomodoros))
                 .SetPropertyAccessMode(PropertyAccessMode.Field);
         }
