@@ -86,6 +86,8 @@ namespace Goleador.Web
 
             dbContext.Database.Migrate();
 
+            app.ConfigureExceptionHandler();
+
             app.UseHttpsRedirection();
 
             app.UseRouting();

@@ -1,5 +1,5 @@
-﻿using Goleador.Application.Contracts.Models;
-using Goleador.Application.Read.Models;
+﻿using Goleador.Application.Read.Models;
+using Goleador.Application.Shared.Types;
 using MediatR;
 using System;
 using System.Collections.Generic;

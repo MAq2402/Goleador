@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Goleador.Application.Contracts.Services;
+using Goleador.Application.Shared.Services;
 using Goleador.Infrastructure.Auth;
 using Goleador.Infrastructure.DbContext;
 using Microsoft.AspNetCore.Authentication.JwtBearer;

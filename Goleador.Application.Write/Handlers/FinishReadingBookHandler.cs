@@ -1,7 +1,7 @@
-﻿using Goleador.Application.Write.Commands;
+﻿using Goleador.Application.Shared.Exceptions;
+using Goleador.Application.Write.Commands;
 using Goleador.Domain.Base;
 using Goleador.Domain.Book;
-using Goleador.Infrastructure.Messages;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -23,6 +23,11 @@ namespace Goleador.Application.Write.Handlers
         public async Task<Unit> Handle(FinishReadingBook request, CancellationToken cancellationToken)
         {
             var book = await _bookRepository.GetAsync(request.Id);
+
+            if (book == null)
+            {
+                throw new NotFoundException($"Book with id: {request.Id} does not exist.");
+            }
 
             book.FinishReading();
 

@@ -1,7 +1,7 @@
-﻿using Goleador.Application.Contracts.Models;
-using Goleador.Application.Contracts.Services;
-using Goleador.Application.Read.Models;
-using Goleador.Application.Read.Queries;
+﻿using Goleador.Application.Read.Queries;
+using Goleador.Application.Shared.Exceptions;
+using Goleador.Application.Shared.Services;
+using Goleador.Application.Shared.Types;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -22,7 +22,8 @@ namespace Goleador.Application.Read.Handlers
 
         public async Task<User> Handle(LoginQuery request, CancellationToken cancellationToken)
         {
-            return await _authService.LoginAsync(request.UserName, request.Password);
+            return await _authService.LoginAsync(request.UserName, request.Password) ??
+                throw new NotFoundException($"User with given credentails does not exist.");
         }
     }
 }

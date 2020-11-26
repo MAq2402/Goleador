@@ -8,7 +8,7 @@ using Goleador.Application.Messages.Decorators;
 using Goleador.Application.Messages.Handlers;
 using Goleador.Application.Read.MessageHandlers;
 using Goleador.Application.Read.Repositories;
-using Goleador.Domain.Base;
+using Goleador.Application.Read.Services;
 using Goleador.Infrastructure.BookSearch.Services;
 using Goleador.Infrastructure.Events;
 using Goleador.Infrastructure.Messages;
@@ -30,9 +30,9 @@ namespace Goleador.Web
 
         public static void RegisterRepositories(this ContainerBuilder builder)
         {
-            builder.RegisterGeneric(typeof(WriteRepository<>)).As(typeof(IRepository<>));
-            builder.RegisterGeneric(typeof(ReadRepository<>)).As(typeof(IReadRepository<>));
-            builder.RegisterType<BookRepository>().As<IBookRepository>();
+            builder.RegisterGeneric(typeof(EfCoreWriteRepository<>)).As(typeof(Domain.Base.IRepository<>));
+            builder.RegisterGeneric(typeof(MongoReadRepository<>)).As(typeof(Application.Read.Repositories.IRepository<>));
+            builder.RegisterType<BookReadRepository>().As<IBookRepository>();
         }
 
         public static void RegisterServices(this ContainerBuilder builder)

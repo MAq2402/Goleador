@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Goleador.Infrastructure.Types;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace Goleador.Application.Read.Models

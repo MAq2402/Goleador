@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Goleador.Infrastructure\Goleador.Infrastructure.csproj" />
+    <ProjectReference Include="..\Goleador.Application.Shared\Goleador.Application.Shared.csproj" />
   </ItemGroup>
 
   <ItemGroup>

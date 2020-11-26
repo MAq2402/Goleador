@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using Goleador.Application.Contracts.Services;
+using Goleador.Application.Shared.Services;
 using Microsoft.AspNetCore.Identity;
 
 namespace OccBooking.Auth.Services
@@ -18,7 +18,7 @@ namespace OccBooking.Auth.Services
             _jwtFactory = jwtFactory;
         }
 
-        public async Task<Goleador.Application.Contracts.Models.User> LoginAsync(string userName, string password)
+        public async Task<Goleador.Application.Shared.Types.User> LoginAsync(string userName, string password)
         {
             var user = await _userManager.FindByNameAsync(userName);
 
@@ -34,7 +34,7 @@ namespace OccBooking.Auth.Services
 
             var jwt = _jwtFactory.GenerateJwt(user.Id);
 
-            return new Goleador.Application.Contracts.Models.User
+            return new Goleador.Application.Shared.Types.User
             {
                 Id = user.Id,
                 UserName = user.UserName,

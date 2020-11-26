@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Goleador.Application.Read\Goleador.Application.Read.csproj" />
-    <ProjectReference Include="..\Goleador.Infrastructure\Goleador.Infrastructure.csproj" />
+    <ProjectReference Include="..\Goleador.Domain\Goleador.Domain.csproj" />
   </ItemGroup>
 
 </Project>

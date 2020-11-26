@@ -1,10 +1,10 @@
-﻿using Goleador.Application.Contracts.Models;
+﻿using Goleador.Application.Shared.Types;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Goleador.Application.Contracts.Services
+namespace Goleador.Application.Shared.Services
 {
     public interface IAuthService
     {

@@ -2,13 +2,13 @@
 // @hostName = http://localhost:59040
 
 @hostName = https://localhost:44323
-@bookId = 916e9ebe-7206-4442-ad6a-ed96929e6741
+@bookId = 0745399d-ecd8-498d-9747-644444a46ef1
 
 @bookApiKey = AIzaSyAisGZqCY5mXmgrD0avUdhRACHPLhd_G7I
 
 @bookApiUrl = https://www.googleapis.com/books/v1/
 
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzNGRkNDU0Ni00MDIxLTQzNDEtODRjYy1jZjdlYWE1N2JiZDMiLCJqdGkiOiJkOTg0ZjY3My1mMzlkLTQyZmEtYjNkMC02ODFmZGExMDM0NGYiLCJpYXQiOjE2MDYzMjIwNjUsInVzZXJJZCI6IjM0ZGQ0NTQ2LTQwMjEtNDM0MS04NGNjLWNmN2VhYTU3YmJkMyIsIm5iZiI6MTYwNjMyMjA2NSwiZXhwIjoxNjA2MzI5MjY1LCJpc3MiOiJHb2xlYWRvciIsImF1ZCI6Imh0dHBzOi8vbG9jYWxob3N0OjQ0MzIzLyJ9.oqFbTrpMMHrf_CDKFqPJ58OdnSnBQ_htE7v9wpqxuT4
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzNGRkNDU0Ni00MDIxLTQzNDEtODRjYy1jZjdlYWE1N2JiZDMiLCJqdGkiOiJlODk5Y2JiYy0zODRjLTQ4MTctYjNmMC02N2QyNmYwOGM3N2YiLCJpYXQiOjE2MDY0MTA4MzQsInVzZXJJZCI6IjM0ZGQ0NTQ2LTQwMjEtNDM0MS04NGNjLWNmN2VhYTU3YmJkMyIsIm5iZiI6MTYwNjQxMDgzMywiZXhwIjoxNjA2NDE4MDMzLCJpc3MiOiJHb2xlYWRvciIsImF1ZCI6Imh0dHBzOi8vbG9jYWxob3N0OjQ0MzIzLyJ9.ClcOiXw4t3-2S6ZDYzAJW1V_rjr-ieFSegy2VKhtr6A
 
 
 POST {{hostName}}/api/auth/login HTTP/1.1
@@ -32,7 +32,7 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-    "title": "zajebista",
+    "title": "refaktor",
     "authors": ["test2"],
     "thumbnail": "thumbnail",
     "publishedYear": "1997",

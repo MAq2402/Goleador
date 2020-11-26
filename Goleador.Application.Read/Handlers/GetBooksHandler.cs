@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Goleador.Application.Read.Models;
 using Goleador.Application.Read.Queries;
 using Goleador.Application.Read.Repositories;
-using Goleador.Infrastructure.Repositories;
 using MediatR;
 
 namespace Goleador.Application.Read.Handlers

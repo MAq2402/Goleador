@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Goleador.Infrastructure.Types;
 
 namespace Goleador.Application.Read.Models
 {

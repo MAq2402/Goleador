@@ -1,20 +1,19 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using Goleador.Application.Read.Models;
-using Goleador.Infrastructure.Repositories;
+﻿using Goleador.Application.Read.Models;
+using Goleador.Application.Read.Repositories;
 using Goleador.Infrastructure.Types;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Goleador.Application.Read.Repositories
+namespace Goleador.Infrastructure.Repositories
 {
-    public class BookRepository : ReadRepository<Book>, IBookRepository
+    public class BookReadRepository : MongoReadRepository<Book>, IBookRepository
     {
-        public BookRepository(Settings settings) : base(settings)
+        public BookReadRepository(Settings settings) : base(settings)
         {
         }
 
@@ -30,7 +29,7 @@ namespace Goleador.Application.Read.Repositories
 
         public async Task<Book> BookWithPomodorosAsync(Guid requestId)
         {
-            var book =  await Collection.Aggregate()
+            var book = await Collection.Aggregate()
                 .Match(b => b.Id == requestId)
                 .Lookup("Pomodoros", "_id", "PomodorableId", "Pomodoros")
                 .FirstOrDefaultAsync();

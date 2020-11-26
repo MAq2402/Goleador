@@ -1,12 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Connections.Client;
+﻿using Goleador.Application.Read.Models;
+using Goleador.Application.Read.Services;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.AspNetCore.SignalR.Client;
-using Microsoft.Net.Http.Headers;
-using System;
 using System.Collections.Generic;
-using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Goleador.Infrastructure.RealTimeServices
@@ -20,9 +16,9 @@ namespace Goleador.Infrastructure.RealTimeServices
             _hubContext = hubContext;
         }
 
-        public async Task SendAsync(object data, string userId)
+        public async Task SendAsync(IEnumerable<Book> books, string userId)
         {
-            await _hubContext.Clients.User(userId).SendAsync("books", data);
+            await _hubContext.Clients.User(userId).SendAsync("books", books);
         }
     }
 }

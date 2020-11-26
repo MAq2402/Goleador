@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Goleador.Domain.Base;
 using Goleador.Domain.Book.Events;
+using Goleador.Domain.Exceptions;
 
 namespace Goleador.Domain.Book
 {
@@ -48,7 +49,7 @@ namespace Goleador.Domain.Book
         {
             if (Status != BookStatus.ToRead)
             {
-                throw new InvalidOperationException("The book is in read or has been already finished");
+                throw new DomainException("The book is in read or has been already finished");
             }
 
             Status = BookStatus.InRead;
@@ -61,7 +62,7 @@ namespace Goleador.Domain.Book
         {
             if (Status != BookStatus.InRead)
             {
-                throw new InvalidOperationException("The book is in to read list or has been already finished");
+                throw new DomainException("The book is in to read list or has been already finished");
             }
 
             Status = BookStatus.Finished;
@@ -74,7 +75,7 @@ namespace Goleador.Domain.Book
         {
             if (Status != BookStatus.InRead)
             {
-                throw new InvalidOperationException("Pomodoro can be only done on book that is in read state");
+                throw new DomainException("Pomodoro can be only done on book that is in read state");
             }
 
             var pomodoro = new Pomodoro.Pomodoro();

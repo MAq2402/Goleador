@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Goleador.Infrastructure.BookSearch.Models;
+using Goleador.Application.Read.Models;
 using MediatR;
 
 namespace Goleador.Application.Read.Queries
 {
-    public class SearchBooksQuery : IRequest<BookResponse>
+    public class SearchBooksQuery : IRequest<SearchedBookCollection>
     {
         public SearchBooksQuery(string query)
         {

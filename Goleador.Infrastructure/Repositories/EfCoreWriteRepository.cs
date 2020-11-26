@@ -9,12 +9,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Goleador.Infrastructure.Repositories
 {
-    public class WriteRepository<T> : IRepository<T> where T : AggregateRoot
+    public class EfCoreWriteRepository<T> : IRepository<T> where T : AggregateRoot
     {
         private readonly GoleadorDbContext _dbContext;
         private readonly IEventDispatcher _eventDispatcher;
 
-        public WriteRepository(GoleadorDbContext dbContext, IEventDispatcher eventDispatcher)
+        public EfCoreWriteRepository(GoleadorDbContext dbContext, IEventDispatcher eventDispatcher)
         {
             _dbContext = dbContext;
             _eventDispatcher = eventDispatcher;
