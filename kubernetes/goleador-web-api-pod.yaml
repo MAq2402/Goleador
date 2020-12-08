@@ -10,7 +10,7 @@ spec:
   - env:
     - name: ASPNETCORE_ENVIRONMENT
       value: Docker
-    image: goleador-web-api
+    image: goleador_goleador-web-api:latestt
     name: goleador-web-api
     ports:
     - containerPort: 80

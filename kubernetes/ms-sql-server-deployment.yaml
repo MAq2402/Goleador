@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
-    kompose.cmd: kompose convert
+    kompose.cmd: C:\kompose\kompose.exe convert --out ./kubernetes
     kompose.version: 1.21.0 (992df58d8)
   creationTimestamp: null
   labels:
@@ -17,7 +17,7 @@ spec:
   template:
     metadata:
       annotations:
-        kompose.cmd: kompose convert
+        kompose.cmd: C:\kompose\kompose.exe convert --out ./kubernetes
         kompose.version: 1.21.0 (992df58d8)
       creationTimestamp: null
       labels:
@@ -26,12 +26,12 @@ spec:
       containers:
       - env:
         - name: ACCEPT_EULA
-          value: Y
+          value: "Y"
         - name: MSSQL_PID
           value: Express
         - name: SA_PASSWORD
           value: Password123
-        image: mcr.microsoft.com/mssql/server:2017-latest-ubuntu
+        image: mcr.microsoft.com/mssql/server:2017-latest-ubuntu2
         imagePullPolicy: ""
         name: ms-sql-server
         ports:

@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
-    kompose.cmd: kompose convert
+    kompose.cmd: C:\kompose\kompose.exe convert --out ./kubernetes
     kompose.version: 1.21.0 (992df58d8)
   creationTimestamp: null
   labels:
@@ -17,7 +17,7 @@ spec:
   template:
     metadata:
       annotations:
-        kompose.cmd: kompose convert
+        kompose.cmd: C:\kompose\kompose.exe convert --out ./kubernetes
         kompose.version: 1.21.0 (992df58d8)
       creationTimestamp: null
       labels:
@@ -31,15 +31,15 @@ spec:
           value: guest
         image: rabbitmq:3-management
         imagePullPolicy: ""
-        livenessProbe:
-          exec:
-            command:
-            - curl
-            - -f
-            - http://localhost:15672
-          failureThreshold: 5
-          periodSeconds: 30
-          timeoutSeconds: 10
+        # livenessProbe:
+        #   exec:
+        #     command:
+        #     - curl
+        #     - -f
+        #     - http://localhost:15672
+          # failureThreshold: 5
+          # periodSeconds: 30
+          # timeoutSeconds: 10
         name: rabbitmq
         ports:
         - containerPort: 5672
