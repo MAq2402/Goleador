@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: goleador-ui
+  name: goleador-ui
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: goleador-ui
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: goleador-ui
+    spec:
+      containers:
+      - image: goleadorcr.azurecr.io/goleador_goleador-ui:v1
+        name: goleador-ui
+        imagePullPolicy: Always
+        resources: {}
+        # dnsPolicy: ClusterFirst
+        # securityContext: {}
+        # schedulerName: default-scheduler
+        # ports:
+        #   - containerPort: 3080
+        
+status: {}
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: goleador-ui
+  labels:
+    app: goleador-ui
+spec:
+  type: LoadBalancer
+  ports:
+  - protocol: TCP
+    port: 80
+  selector:
+    app: goleador-ui

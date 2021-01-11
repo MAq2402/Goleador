@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.service: goleador-web-api
+  name: goleador-web-api
+spec:
+  containers:
+  - env:
+    - name: ASPNETCORE_ENVIRONMENT
+      value: Docker
+    image: goleador_goleador-web-api:latestt
+    name: goleador-web-api
+    ports:
+    - containerPort: 80
+    resources: {}
+  restartPolicy: OnFailure
+status: {}
