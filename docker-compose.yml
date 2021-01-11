@@ -8,6 +8,8 @@ services:
             MSSQL_PID: Express
         ports:
             - "1433:1433"
+        volumes:
+            - C:/sqlVolume/var/opt/mssql/data mcr.microsoft.com/mssql/server
 
     rabbitmq:
         hostname: rabbitmq
@@ -33,6 +35,8 @@ services:
             MONGO_INITDB_ROOT_PASSWORD: example
         ports:
             - 27017:27017
+        volumes: 
+            - ~/mongo/data:/data/db
 
     mongo-express:
         image: mongo-express
@@ -53,7 +57,7 @@ services:
             - "8080:80"
         depends_on:
             - rabbitmq
-            # - ms-sql-server
+            - ms-sql-server
             - mongo
         links: 
             - rabbitmq
@@ -63,6 +67,6 @@ services:
         build: ./Goleador.UI/Goleador
         ports: 
             - 4200:80
-        # depends_on: 
-        #     - goleador-web-api
+        depends_on: 
+            - goleador-web-api
         

@@ -1,6 +1,6 @@
 @hostName = http://localhost:8080
 // @hostName = http://localhost:59040
-
+//kalon0@icslecture.com -l
 # @hostName = https://localhost:44323
 @bookId = a7dd728a-0066-4bcc-872c-0d7a59c4f158
 
