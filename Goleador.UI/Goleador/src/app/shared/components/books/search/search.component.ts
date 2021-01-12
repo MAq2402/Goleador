@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material';
 import { Observable, of } from 'rxjs';
-import { debounceTime, distinctUntilChanged, map, startWith, switchMap } from 'rxjs/operators';
+import { catchError, debounceTime, distinctUntilChanged, map, startWith, switchMap } from 'rxjs/operators';
 import { BookService } from 'src/app/core/services/book.service';
 import { BookSearchItem } from 'src/app/shared/models/book-search-item';
 
@@ -26,23 +26,23 @@ export class SearchComponent implements OnInit {
   ngOnInit(): void {
     if (this.searchInOwnCollection) {
       this.filteredBooks = this.searchControl.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => value ? this.filterBooks(value) : this.books.slice())
-      );
+        .pipe(
+          startWith(''),
+          map(value => value ? this.filterBooks(value) : this.books.slice())
+        );
     } else {
       this.filteredBooks = this.searchControl.valueChanges
-      .pipe(
-        debounceTime(400),
-        distinctUntilChanged(),
-        switchMap(term => {
-          if (term && term.length > 2) {
-            return this.bookService.searchBooks(term);
-          } else {
-            return of([]);
+        .pipe(
+          debounceTime(400),
+          distinctUntilChanged(),
+          switchMap(term => {
+            if (term && term.length > 2) {
+              return this.bookService.searchBooks(term).pipe(catchError(err => of([])));
+            } else {
+              return of([]);
+            }
           }
-        }
-      ));
+          ));
     }
   }
 

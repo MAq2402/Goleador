@@ -16,8 +16,8 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.form = new FormGroup({
-      password: new FormControl([null, [Validators.required]]),
-      userName: new FormControl([null, [Validators.required]])
+      password: new FormControl('', Validators.required),
+      userName: new FormControl('', Validators.required)
     });
 
     if (this.authService.isLoggedIn()) {

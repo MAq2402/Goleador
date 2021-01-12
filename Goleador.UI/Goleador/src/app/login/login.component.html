@@ -4,10 +4,10 @@
     </mat-card-header>
     <form [formGroup]="form">
         <mat-form-field>
-            <input autocomplete="off" formControlName="userName" matInput placeholder="User name">
+            <input formControlName="userName" matInput placeholder="User name">
         </mat-form-field>
         <mat-form-field>
-            <input autocomplete="off" formControlName="password" type="password" matInput placeholder="Password">
+            <input formControlName="password" type="password" matInput placeholder="Password">
         </mat-form-field>
         <button (click)="submit()" mat-raised-button color="primary">
             Sign in
