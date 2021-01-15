@@ -27,15 +27,31 @@ namespace Goleador.Infrastructure.Types
         public string Key { get; }
     }
 
+    public class SmsSettings
+    {
+        public SmsSettings(string key, string secret, string from)
+        {
+            Secret = secret;
+            Key = key;
+            From = from;
+        }
+
+        public string Secret { get; }
+        public string Key { get; }
+        public string From { get; }
+    }
+
     public class Settings
     {
-        public Settings(MongoSettings mongoSettings, GoogleBooksApiSettings googleBooksApiSettings)
+        public Settings(MongoSettings mongoSettings, GoogleBooksApiSettings googleBooksApiSettings, SmsSettings smsSettings)
         {
             MongoSettings = mongoSettings;
             GoogleBooksApiSettings = googleBooksApiSettings;
+            SmsSettings = smsSettings;
         }
 
         public MongoSettings MongoSettings { get; }
         public GoogleBooksApiSettings GoogleBooksApiSettings { get; }
+        public SmsSettings SmsSettings { get; }
     }
 }

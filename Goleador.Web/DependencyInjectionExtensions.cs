@@ -14,6 +14,7 @@ using Goleador.Infrastructure.Events;
 using Goleador.Infrastructure.Messages;
 using Goleador.Infrastructure.RealTimeServices;
 using Goleador.Infrastructure.Repositories;
+using Goleador.Infrastructure.SMS;
 using Goleador.Web.Dispatchers;
 using Microsoft.AspNetCore.SignalR;
 
@@ -31,7 +32,7 @@ namespace Goleador.Web
         public static void RegisterRepositories(this ContainerBuilder builder)
         {
             builder.RegisterGeneric(typeof(EfCoreWriteRepository<>)).As(typeof(Domain.Base.IRepository<>));
-            builder.RegisterGeneric(typeof(MongoReadRepository<>)).As(typeof(Application.Read.Repositories.IRepository<>));
+            builder.RegisterGeneric(typeof(MongoReadRepository<>)).As(typeof(IRepository<>));
             builder.RegisterType<BookReadRepository>().As<IBookRepository>();
         }
 
@@ -41,6 +42,7 @@ namespace Goleador.Web
             builder.RegisterType<BookSearchService>().As<IBookSearchService>();
             builder.RegisterType<BookHubService>().As<IBookHubService>();
             builder.RegisterType<UserIdProvider>().As<IUserIdProvider>();
+            builder.RegisterType<SmsService>().As<ISmsService>();
         }
 
         public static void RegisterDispatchers(this ContainerBuilder builder)

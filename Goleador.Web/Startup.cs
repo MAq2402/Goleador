@@ -3,14 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Threading.Tasks;
 using Autofac;
 using Goleador.Application.Read.Queries;
 using Goleador.Application.Write.Commands;
 using Goleador.Infrastructure.DbContext;
 using Goleador.Infrastructure.RealTimeServices;
+using Goleador.Infrastructure.SMS;
 using Goleador.Infrastructure.Types;
 using Goleador.Web.Auth;
 using Goleador.Web.Dispatchers;
+using Hangfire;
+using Hangfire.SqlServer;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -58,15 +62,33 @@ namespace Goleador.Web
 
             services.AddMediatR(Assembly.GetAssembly(typeof(AddBookToFutureReadList)),
                 Assembly.GetAssembly(typeof(GetBooksQuery)));
+
+            services.AddHangfire(configuration => configuration
+        .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
+        .UseSimpleAssemblyNameTypeSerializer()
+        .UseRecommendedSerializerSettings()
+        .UseSqlServerStorage("Server=(localdb)\\mssqllocaldb;Database=Goleador.HangFire;Integrated Security=True;", new SqlServerStorageOptions
+        {
+            CommandBatchMaxTimeout = TimeSpan.FromMinutes(5),
+            SlidingInvisibilityTimeout = TimeSpan.FromMinutes(5),
+            QueuePollInterval = TimeSpan.Zero,
+            UseRecommendedIsolationLevel = true,
+            DisableGlobalLocks = true
+        }));
+
+            // Add the processing server as IHostedService
+            services.AddHangfireServer();
         }
 
         public void ConfigureContainer(ContainerBuilder builder)
         {
             var mongoConfiguration = Configuration.GetSection("GoleadorReadDatabaseSettings");
             var googleBooksApiConfiguration = Configuration.GetSection("GoogleBooksApi");
+            var smsConfiguration = Configuration.GetSection("Sms");
             var appSettings = new Settings(new MongoSettings(mongoConfiguration["ConnectionString"],
                     mongoConfiguration["DatabaseName"]),
-                new GoogleBooksApiSettings(googleBooksApiConfiguration["Key"]));
+                new GoogleBooksApiSettings(googleBooksApiConfiguration["Key"]),
+                new SmsSettings(smsConfiguration["Key"], smsConfiguration["Secret"], smsConfiguration["From"]));
 
             builder.Register(context => appSettings).SingleInstance();
             builder.RegisterRepositories();
@@ -77,7 +99,10 @@ namespace Goleador.Web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, GoleadorDbContext dbContext)
+        public void Configure(IApplicationBuilder app, 
+            IWebHostEnvironment env, 
+            GoleadorDbContext dbContext,
+            ISmsService smsService)
         {
             if (env.IsDevelopment())
             {
@@ -88,6 +113,11 @@ namespace Goleador.Web
 
             app.ConfigureExceptionHandler();
 
+            app.UseHangfireDashboard();
+
+            RecurringJob.AddOrUpdate(() => smsService.SendMessageAboutBooksInReadAsync("xD", "48505817439", "xDDDDD"), Cron.Daily);
+            // backgroundJobs.Requeue(() => Console.WriteLine("Hello world from Hangfire!"));
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
@@ -97,9 +127,11 @@ namespace Goleador.Web
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints => { 
+            app.UseEndpoints(endpoints =>
+            {
                 endpoints.MapControllers();
                 endpoints.MapHub<BookHub>("hub/books");
+                endpoints.MapHangfireDashboard();
             });
 
             app.SubscribeToMessages();
