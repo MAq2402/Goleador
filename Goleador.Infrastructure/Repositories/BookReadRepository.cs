@@ -21,7 +21,7 @@ namespace Goleador.Infrastructure.Repositories
         {
             var books = await Collection.Aggregate()
                 .Match(b => b.UserId == userId)
-                .Match(b => !string.IsNullOrEmpty(status) && b.Status == status)
+                .Match(b => string.IsNullOrEmpty(status) || b.Status == status)
                 .Lookup("Pomodoros", "_id", "PomodorableId", "Pomodoros")
                 .ToListAsync();
 
