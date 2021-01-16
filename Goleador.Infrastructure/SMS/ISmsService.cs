@@ -7,6 +7,6 @@ namespace Goleador.Infrastructure.SMS
 {
     public interface ISmsService
     {
-        Task SendMessageAboutBooksInReadAsync(string from, string to, string text);
+        Task SendMessageAboutBooksInReadAsync();
     }
 }

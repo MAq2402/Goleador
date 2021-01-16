@@ -28,7 +28,7 @@ namespace Goleador.Domain.Book
         {
             if (this != ToRead)
             {
-                throw new DomainException("The book is in read or has been already finished o");
+                throw new DomainException("The book is in read or has been already finished.");
             }
 
             return InRead;
@@ -38,7 +38,7 @@ namespace Goleador.Domain.Book
         {
             if (this != InRead)
             {
-                throw new DomainException("The book has been already finished");
+                throw new DomainException("The book has been already finished.");
             }
 
             return Finished;

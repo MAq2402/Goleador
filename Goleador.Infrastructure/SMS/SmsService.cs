@@ -26,7 +26,7 @@ namespace Goleador.Infrastructure.SMS
             _bookRepository = bookRepository;
         }
 
-        public async Task SendMessageAboutBooksInReadAsync(string from, string to, string text)
+        public async Task SendMessageAboutBooksInReadAsync()
         {
             var users = await _dbContext.Users.Where(u => !string.IsNullOrEmpty(u.PhoneNumber))
                 .Select(u => new
@@ -42,26 +42,20 @@ namespace Goleador.Infrastructure.SMS
                 ApiSecret = _settings.Secret
             });
 
-            try
-            {
-                foreach (var user in users)
-                {
-                    var books = await _bookRepository.BooksWithPomodorosAsync(user.Id, "In read"); // shared project needed
 
-                    if (books.Any())
-                    {
-                        var message = BuildMessage(books);
-                        client.SMS.Send(request: new SMSRequest
-                        {
-                            from = _settings.From,
-                            to = user.PhoneNumber,
-                            text = message.ToString()
-                        });
-                    }
-                }
-            }
-            catch
+            foreach (var user in users)
             {
+                var books = await _bookRepository.BooksWithPomodorosAsync(user.Id, "In read");
+                if (books.Any())
+                {
+                    var message = BuildMessage(books);
+                    client.SMS.Send(request: new SMSRequest
+                    {
+                        from = _settings.From,
+                        to = user.PhoneNumber,
+                        text = message.ToString()
+                    });
+                }
             }
         }
 
@@ -75,13 +69,6 @@ namespace Goleador.Infrastructure.SMS
             }
 
             return messageBuilder.ToString();
-        }
-
-        internal class SMSRequest : Nexmo.Api.SMS.SMSRequest
-        {
-            public string from { get; set; }
-            public string to { get; set; }
-            public string text { get; set; }
         }
     }
 }
