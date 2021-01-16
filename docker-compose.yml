@@ -51,7 +51,7 @@ services:
 
     goleador-web-api:
         environment: 
-        - ASPNETCORE_ENVIRONMENT=Docker
+        - ASPNETCORE_ENVIRONMENT=Prod
         build: .
         ports: 
             - "8080:80"
