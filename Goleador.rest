@@ -8,7 +8,7 @@
 
 @bookApiUrl = https://www.googleapis.com/books/v1/
 
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MTY3YzQ5MC05NWFlLTQ0NjQtOWNmMS05NTllN2ViODMwNmIiLCJqdGkiOiJiYmZmNDZkYy00NzJkLTQwMDUtYTBlOC0xMWIyNzYzMDc5NTYiLCJpYXQiOjE2MDc0NTMwNDcsInVzZXJJZCI6IjYxNjdjNDkwLTk1YWUtNDQ2NC05Y2YxLTk1OWU3ZWI4MzA2YiIsIm5iZiI6MTYwNzQ1MzA0NiwiZXhwIjoxNjA3NDYwMjQ2LCJpc3MiOiJHb2xlYWRvciIsImF1ZCI6Imh0dHBzOi8vbG9jYWxob3N0OjQ0MzIzLyJ9.dhSNvnFrX51LgpPGic49tOLqAZGrDCtV5KimqThUlrk
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3MGFmMjIzNy04ZTlkLTRmZjItYmYyMi05OTRiMWVlOWQxYjciLCJqdGkiOiIyYWI5NzQ0Mi1jN2U2LTQ5MGYtOTI4YS0zNTAxZDEwYzAxMDIiLCJpYXQiOjE2MTA3Mjk4NjMsInVzZXJJZCI6IjcwYWYyMjM3LThlOWQtNGZmMi1iZjIyLTk5NGIxZWU5ZDFiNyIsIm5iZiI6MTYxMDcyOTg2MywiZXhwIjoxNjEwNzM3MDYzLCJpc3MiOiJHb2xlYWRvciIsImF1ZCI6Imh0dHBzOi8vbG9jYWxob3N0OjQ0MzIzLyJ9.xo5a4-EZXnQcTmZb1HGIRuykzxssPsB3rCe_M6E5w_A
 
 
 POST {{hostName}}/api/auth/login HTTP/1.1
@@ -40,6 +40,9 @@ Authorization: Bearer {{token}}
 }
 
 GET {{hostName}}/api/books HTTP/1.1
+authorization: Bearer {{token}}
+
+GET {{hostName}}/api/books/sms HTTP/1.1
 authorization: Bearer {{token}}
 
 GET {{hostName}}/api/books/{{bookId}} HTTP/1.1

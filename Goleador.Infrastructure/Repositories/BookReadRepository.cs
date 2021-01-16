@@ -17,10 +17,11 @@ namespace Goleador.Infrastructure.Repositories
         {
         }
 
-        public async Task<IEnumerable<Book>> BooksWithPomodorosAsync(string userId)
+        public async Task<IEnumerable<Book>> BooksWithPomodorosAsync(string userId, string status = null)
         {
             var books = await Collection.Aggregate()
                 .Match(b => b.UserId == userId)
+                .Match(b => string.IsNullOrEmpty(status) || b.Status == status)
                 .Lookup("Pomodoros", "_id", "PomodorableId", "Pomodoros")
                 .ToListAsync();
 

@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Threading.Tasks;
 using Autofac;
 using Goleador.Application.Read.Queries;
 using Goleador.Application.Write.Commands;
 using Goleador.Infrastructure.DbContext;
 using Goleador.Infrastructure.RealTimeServices;
+using Goleador.Infrastructure.SMS;
 using Goleador.Infrastructure.Types;
 using Goleador.Web.Auth;
-using Goleador.Web.Dispatchers;
+using Hangfire;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -51,24 +53,20 @@ namespace Goleador.Web
             });
 
             services.AddDbContext<GoleadorDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(Configuration.GetSection("WriteDatabaseSettings")["ConnectionString"]));
 
             services.ConfigureAuthentication(Configuration,
                new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Configuration.GetSection("Security")["Key"])));
 
             services.AddMediatR(Assembly.GetAssembly(typeof(AddBookToFutureReadList)),
                 Assembly.GetAssembly(typeof(GetBooksQuery)));
+
+            services.AddScheduler(Configuration.GetSection("Hangfire")["DatabaseConnectionString"]);
         }
 
         public void ConfigureContainer(ContainerBuilder builder)
         {
-            var mongoConfiguration = Configuration.GetSection("GoleadorReadDatabaseSettings");
-            var googleBooksApiConfiguration = Configuration.GetSection("GoogleBooksApi");
-            var appSettings = new Settings(new MongoSettings(mongoConfiguration["ConnectionString"],
-                    mongoConfiguration["DatabaseName"]),
-                new GoogleBooksApiSettings(googleBooksApiConfiguration["Key"]));
-
-            builder.Register(context => appSettings).SingleInstance();
+            builder.RegisterSettings(Configuration);
             builder.RegisterRepositories();
             builder.RegisterServices();
             builder.RegisterDispatchers();
@@ -77,7 +75,10 @@ namespace Goleador.Web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, GoleadorDbContext dbContext)
+        public void Configure(IApplicationBuilder app,
+            IWebHostEnvironment env,
+            GoleadorDbContext dbContext,
+            ISmsService smsService)
         {
             if (env.IsDevelopment())
             {
@@ -88,6 +89,8 @@ namespace Goleador.Web
 
             app.ConfigureExceptionHandler();
 
+            app.UseScheduler(() => smsService.SendMessageAboutBooksInReadAsync(), Cron.Daily(15));
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
@@ -97,9 +100,11 @@ namespace Goleador.Web
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints => { 
+            app.UseEndpoints(endpoints =>
+            {
                 endpoints.MapControllers();
                 endpoints.MapHub<BookHub>("hub/books");
+                endpoints.MapHangfireDashboard();
             });
 
             app.SubscribeToMessages();

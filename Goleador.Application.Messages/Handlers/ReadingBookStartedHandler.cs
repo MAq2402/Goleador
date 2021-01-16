@@ -22,7 +22,7 @@ namespace Goleador.Application.Messages.Handlers
             var updateDictionary = new Dictionary<string, object>
             {
                 { nameof(Book.ReadingStarted), message.OccuredOn },
-                { nameof(Book.Status), "In read"}
+                { nameof(Book.Status), "In read" }
             };
 
             await _bookRepository.UpdateAsync(message.AggregateId, updateDictionary);
