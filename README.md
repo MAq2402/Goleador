@@ -18,3 +18,4 @@ Technologies, techniques etc. used in project:
 - Docker Compose
 - Kubernetes
 - SignalR
+- Hangfire
