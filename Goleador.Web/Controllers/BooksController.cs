@@ -2,20 +2,26 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Goleador.Application.Read.Models;
 using Goleador.Application.Read.Queries;
 using Goleador.Application.Write.Commands;
 using Goleador.Application.Write.Models;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Distributed;
+using Newtonsoft.Json;
 
 namespace Goleador.Web.Controllers
 {
     [Authorize]
     public class BooksController : Controller
     {
-        public BooksController(IMediator mediator) : base(mediator)
+        private IDistributedCache _cache;
+
+        public BooksController(IMediator mediator, IDistributedCache cache) : base(mediator)
         {
+            _cache = cache;
         }
 
         [HttpGet]
@@ -34,7 +40,14 @@ namespace Goleador.Web.Controllers
 
         public async Task<IActionResult> SearchBooksAsync(string query)
         {
-            return Ok(await _mediator.Send(new SearchBooksQuery(query)));
+            var cachedBooks = await _cache.GetStringAsync($"search_books_{query}");
+            if(cachedBooks != null)
+            {
+                return Ok(JsonConvert.DeserializeObject<SearchedBookCollection>(cachedBooks));
+            }
+            var books = await _mediator.Send(new SearchBooksQuery(query));
+            await _cache.SetStringAsync($"search_books_{query}", JsonConvert.SerializeObject(books));
+            return Ok(books);
         }
 
         [HttpPost]

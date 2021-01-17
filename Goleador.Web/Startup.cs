@@ -62,6 +62,12 @@ namespace Goleador.Web
                 Assembly.GetAssembly(typeof(GetBooksQuery)));
 
             services.AddScheduler(Configuration.GetSection("Hangfire")["DatabaseConnectionString"]);
+
+            services.AddDistributedRedisCache(options =>
+            {
+                options.Configuration = Configuration["RedisCache:ConnectionString"];
+                // options.ConfigurationOptions.
+            });
         }
 
         public void ConfigureContainer(ContainerBuilder builder)
