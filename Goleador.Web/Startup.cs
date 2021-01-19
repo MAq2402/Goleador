@@ -12,6 +12,7 @@ using Goleador.Infrastructure.RealTimeServices;
 using Goleador.Infrastructure.SMS;
 using Goleador.Infrastructure.Types;
 using Goleador.Web.Auth;
+using Goleador.Web.Filters;
 using Hangfire;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -66,8 +67,11 @@ namespace Goleador.Web
             services.AddDistributedRedisCache(options =>
             {
                 options.Configuration = Configuration["RedisCache:ConnectionString"];
-                // options.ConfigurationOptions.
             });
+
+            services.AddScoped<CacheFilter>();
+
+            services.AddMvc().AddNewtonsoftJson();
         }
 
         public void ConfigureContainer(ContainerBuilder builder)
