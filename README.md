@@ -19,3 +19,4 @@ Technologies, techniques etc. used in project:
 - Kubernetes
 - SignalR
 - Hangfire
+- Redis
