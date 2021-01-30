@@ -10,7 +10,6 @@ using Goleador.Application.Write.Commands;
 using Goleador.Infrastructure.DbContext;
 using Goleador.Infrastructure.RealTimeServices;
 using Goleador.Infrastructure.SMS;
-using Goleador.Infrastructure.Types;
 using Goleador.Web.Auth;
 using Hangfire;
 using MediatR;
@@ -62,6 +61,11 @@ namespace Goleador.Web
                 Assembly.GetAssembly(typeof(GetBooksQuery)));
 
             services.AddScheduler(Configuration.GetSection("Hangfire")["DatabaseConnectionString"]);
+
+            services.AddDistributedRedisCache(options =>
+            {
+                options.Configuration = Configuration["RedisCache:ConnectionString"];
+            });
         }
 
         public void ConfigureContainer(ContainerBuilder builder)

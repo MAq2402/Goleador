@@ -16,21 +16,28 @@
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.7">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Caching.Redis" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="3.1.7" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.9.10" />
     <PackageReference Include="RawRabbit" Version="1.10.4" />
     <PackageReference Include="RawRabbit.vNext" Version="1.10.4" />
+    <PackageReference Include="StackExchange.Redis" Version="2.2.4" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Goleador.Application.Read\Goleador.Application.Read.csproj" />
     <ProjectReference Include="..\Goleador.Application.Write\Goleador.Application.Write.csproj" />
     <ProjectReference Include="..\Goleador.Infrastructure\Goleador.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Filters\" />
   </ItemGroup>
 
 

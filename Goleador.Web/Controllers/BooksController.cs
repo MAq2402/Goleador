@@ -2,19 +2,22 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Goleador.Application.Read.Models;
 using Goleador.Application.Read.Queries;
 using Goleador.Application.Write.Commands;
 using Goleador.Application.Write.Models;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Distributed;
 
 namespace Goleador.Web.Controllers
 {
     [Authorize]
     public class BooksController : Controller
     {
-        public BooksController(IMediator mediator) : base(mediator)
+
+        public BooksController(IMediator mediator, IDistributedCache cache) : base(mediator, cache)
         {
         }
 
@@ -34,7 +37,18 @@ namespace Goleador.Web.Controllers
 
         public async Task<IActionResult> SearchBooksAsync(string query)
         {
-            return Ok(await _mediator.Send(new SearchBooksQuery(query)));
+            var key = $"search_books_{query}";
+            var cachedBooks = await GetCacheAsync<SearchedBookCollection>(key);
+            if (cachedBooks != null)
+            {
+                return Ok(cachedBooks);
+            }
+
+            var books = await _mediator.Send(new SearchBooksQuery(query));
+
+            await SetCacheAsync(key, books);
+
+            return Ok(books);
         }
 
         [HttpPost]
