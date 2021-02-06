@@ -13,4 +13,8 @@
     <ProjectReference Include="..\Goleador.Domain\Goleador.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
+
 </Project>

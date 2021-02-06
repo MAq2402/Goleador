@@ -1,0 +1,5 @@
+@bookApiUrl = https://www.googleapis.com/books/v1/
+
+GET {{bookApiUrl}}volumes?q=flowers+inauthor:keyes&key={{bookApiKey}}
+
+GET {{bookApiUrl}}volumes?q=ddd&key={{bookApiKey}}

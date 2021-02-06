@@ -34,6 +34,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Goleador.Application.Read\Goleador.Application.Read.csproj" />
     <ProjectReference Include="..\Goleador.Application.Shared\Goleador.Application.Shared.csproj" />
+    <ProjectReference Include="..\Goleador.Application.Write\Goleador.Application.Write.csproj" />
     <ProjectReference Include="..\Goleador.Domain\Goleador.Domain.csproj" />
   </ItemGroup>
 

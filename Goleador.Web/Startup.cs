@@ -1,13 +1,16 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Autofac;
 using Goleador.Application.Read.Queries;
+using Goleador.Application.Read.Services;
 using Goleador.Application.Write.Commands;
 using Goleador.Infrastructure.DbContext;
+using Goleador.Infrastructure.Payment;
 using Goleador.Infrastructure.RealTimeServices;
 using Goleador.Infrastructure.SMS;
 using Goleador.Web.Auth;
@@ -56,6 +59,19 @@ namespace Goleador.Web
 
             services.ConfigureAuthentication(Configuration,
                new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Configuration.GetSection("Security")["Key"])));
+
+            services.AddHttpClient<PayUPaymentProvider>().ConfigurePrimaryHttpMessageHandler(() =>
+            {
+                return new HttpClientHandler
+                {
+                    AllowAutoRedirect = false
+                };
+            });
+
+            services.AddScoped<IPaymentProvider, PayUPaymentProvider>(serviceProvider =>
+            {
+                return new PayUPaymentProvider(serviceProvider.GetService<IHttpClientFactory>().CreateClient(nameof(PayUPaymentProvider)));
+            });
 
             services.AddMediatR(Assembly.GetAssembly(typeof(AddBookToFutureReadList)),
                 Assembly.GetAssembly(typeof(GetBooksQuery)));

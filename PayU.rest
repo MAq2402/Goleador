@@ -1,0 +1,29 @@
+@token = f573dbf9-2cd9-46a8-8a26-4adaee511de0
+@url = https://secure.snd.payu.com/
+
+
+curl -X POST {{url}}api/v2_1/orders \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer b0c6b2a5-611c-45c3-9d6e-56c8b6ff9630" \
+    -d '{
+        "notifyUrl": "http://goleador.com",
+        "customerIp": "127.0.0.1",
+        "merchantPosId": "403050",
+        "description": "RTV market",
+        "currencyCode": "PLN",
+        "totalAmount": "15000",
+        "buyer": {
+            "language": "pl"
+        },
+        "products": [
+            {
+                "name": "Wireless Mouse for Laptop",
+                "unitPrice": "15000",
+                "quantity": "1"
+            }
+        ]
+    }'
+
+
+GET {{url}}/api/v2_1/orders/5001400790 HTTP/1.1
+Authorization: Bearer {{token}}
